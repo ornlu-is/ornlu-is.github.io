@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Docs on My New Hugo Site</title>
+    <title>Docs on Project Minus</title>
     <link>http://example.org/docs/</link>
-    <description>Recent content in Docs on My New Hugo Site</description>
+    <description>Recent content in Docs on Project Minus</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language><atom:link href="http://example.org/docs/index.xml" rel="self" type="application/rss+xml" />
   </channel>
