@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Project Minus</title>
-    <link>http://example.org/categories/</link>
+    <link>https://ornlu-is.github.io/categories/</link>
     <description>Recent content in Categories on Project Minus</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Apr 2014 00:00:00 +0000</lastBuildDate><atom:link href="http://example.org/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 02 Apr 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://ornlu-is.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Development</title>
-      <link>http://example.org/categories/development/</link>
+      <link>https://ornlu-is.github.io/categories/development/</link>
       <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/categories/development/</guid>
+      <guid>https://ornlu-is.github.io/categories/development/</guid>
       <description></description>
     </item>
     
     <item>
       <title>golang</title>
-      <link>http://example.org/categories/golang/</link>
+      <link>https://ornlu-is.github.io/categories/golang/</link>
       <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/categories/golang/</guid>
+      <guid>https://ornlu-is.github.io/categories/golang/</guid>
       <description></description>
     </item>
     
