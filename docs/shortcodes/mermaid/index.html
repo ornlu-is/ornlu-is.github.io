@@ -6,10 +6,10 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Mermaid Chart #  Mermaid is library for generating svg charts and diagrams from text.
-Example #  {{&lt; mermaid [class=&#34;text-center&#34;]&gt;}} sequenceDiagram Alice-&gt;&gt;Bob: Hello Bob, how are you? alt is sick Bob-&gt;&gt;Alice: Not so good :( else is well Bob-&gt;&gt;Alice: Feeling fresh like a daisy end opt Extra response Bob-&gt;&gt;Alice: Thanks for asking end {{&lt; /mermaid &gt;}}     ">
+Example #  {{&lt; mermaid [class=&#34;text-center&#34;]&gt;}} sequenceDiagram Alice-&gt;&gt;Bob: Hello Bob, how are you? alt is sick Bob-&gt;&gt;Alice: Not so good :( else is well Bob-&gt;&gt;Alice: Feeling fresh like a daisy end opt Extra response Bob-&gt;&gt;Alice: Thanks for asking end {{&lt; /mermaid &gt;}}    mermaid.initialize({ &#34;flowchart&#34;: { &#34;useMaxWidth&#34;:true }, &#34;theme&#34;: &#34;default&#34; } ) sequenceDiagram Alice-Bob: Hello Bob, how are you?">
 <meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="" />
 <meta property="og:description" content="Mermaid Chart #  Mermaid is library for generating svg charts and diagrams from text.
-Example #  {{&lt; mermaid [class=&#34;text-center&#34;]&gt;}} sequenceDiagram Alice-&gt;&gt;Bob: Hello Bob, how are you? alt is sick Bob-&gt;&gt;Alice: Not so good :( else is well Bob-&gt;&gt;Alice: Feeling fresh like a daisy end opt Extra response Bob-&gt;&gt;Alice: Thanks for asking end {{&lt; /mermaid &gt;}}     " />
+Example #  {{&lt; mermaid [class=&#34;text-center&#34;]&gt;}} sequenceDiagram Alice-&gt;&gt;Bob: Hello Bob, how are you? alt is sick Bob-&gt;&gt;Alice: Not so good :( else is well Bob-&gt;&gt;Alice: Feeling fresh like a daisy end opt Extra response Bob-&gt;&gt;Alice: Thanks for asking end {{&lt; /mermaid &gt;}}    mermaid.initialize({ &#34;flowchart&#34;: { &#34;useMaxWidth&#34;:true }, &#34;theme&#34;: &#34;default&#34; } ) sequenceDiagram Alice-Bob: Hello Bob, how are you?" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ornlu-is.github.io/docs/shortcodes/mermaid/" /><meta property="article:section" content="docs" />
 
@@ -19,7 +19,7 @@ Example #  {{&lt; mermaid [class=&#34;text-center&#34;]&gt;}} sequenceDiagram Al
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.2bc2364a4a4b31f0ec1debecf0a8f90a840821f143dfe1ac6a0f7cbcbdcf64ac.css" integrity="sha256-K8I2SkpLMfDsHevs8Kj5CoQIIfFD3&#43;Gsag98vL3PZKw=">
-<script defer src="/en.search.min.9cd17d0563bd78612b04add0f835b506ed85dfc63ca6261da2612f16152761ae.js" integrity="sha256-nNF9BWO9eGErBK3Q&#43;DW1Bu2F38Y8piYdomEvFhUnYa4="></script>
+<script defer src="/en.search.min.4c3f309c72700010272e0cab98c06911e0ff250be680b7a873d235f97f772239.js" integrity="sha256-TD8wnHJwABAnLgyrmMBpEeD/JQvmgLeoc9I1&#43;X93Ijk="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -122,6 +122,11 @@ https://github.com/alex-shpak/hugo-book
         </li>
       
     
+  </ul>
+
+        </li>
+      
+    
       
         <li>
           
@@ -129,9 +134,9 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-4e46b01272d410b3a99461d79326ddf4" class="toggle"  />
-    <label for="section-4e46b01272d410b3a99461d79326ddf4" class="flex justify-between">
-      <a  class="">Collapsed</a>
+    <input type="checkbox" id="section-76a7b950b11d5502e4706072982be2d9" class="toggle"  />
+    <label for="section-76a7b950b11d5502e4706072982be2d9" class="flex justify-between">
+      <a href="https://ornlu-is.github.io/docs/time-series/" class="">Time Series</a>
       <span>▾</span>
     </label>
   
@@ -146,31 +151,8 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="https://ornlu-is.github.io/docs/example/collapsed/3rd-level/" class="">3rd Level</a>
+    <a href="https://ornlu-is.github.io/docs/time-series/ar-process/" class="">AR Process</a>
   
-
-          
-  <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="https://ornlu-is.github.io/docs/example/collapsed/3rd-level/4th-level/" class="">4th Level</a>
-  
-
-        </li>
-      
-    
-  </ul>
-
-        </li>
-      
-    
-  </ul>
 
         </li>
       
@@ -455,10 +437,25 @@ sequenceDiagram
   </div>
   
   <div class="flex-even markdown-inner">
-    <!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+    <script src="/mermaid.min.js"></script>
+  <script>mermaid.initialize({
+  "flowchart": {
+    "useMaxWidth":true
+  },
+  "theme": "default"
+}
+)</script>
+<p class="mermaid">
+sequenceDiagram
+    Alice->>Bob: Hello Bob, how are you?
+    alt is sick
+        Bob->>Alice: Not so good :(
+    else is well
+        Bob->>Alice: Feeling fresh like a daisy
+    end
+    opt Extra response
+        Bob->>Alice: Thanks for asking
+    end
   </div>
   
 </div>

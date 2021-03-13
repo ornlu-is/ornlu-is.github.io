@@ -2,6 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://ornlu-is.github.io/docs/time-series/ar-process/</loc>
+  </url><url>
     <loc>https://ornlu-is.github.io/docs/example/</loc>
   </url><url>
     <loc>https://ornlu-is.github.io/docs/example/table-of-contents/with-toc/</loc>
@@ -16,7 +18,7 @@
   </url><url>
     <loc>https://ornlu-is.github.io/docs/example/table-of-contents/</loc>
   </url><url>
-    <loc>https://ornlu-is.github.io/docs/example/collapsed/</loc>
+    <loc>https://ornlu-is.github.io/docs/time-series/</loc>
   </url><url>
     <loc>https://ornlu-is.github.io/posts/</loc>
     <lastmod>2014-09-28T00:00:00+00:00</lastmod>
@@ -59,10 +61,6 @@
   </url><url>
     <loc>https://ornlu-is.github.io/tags/themes/</loc>
     <lastmod>2014-04-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://ornlu-is.github.io/docs/example/collapsed/3rd-level/4th-level/</loc>
-  </url><url>
-    <loc>https://ornlu-is.github.io/docs/example/collapsed/3rd-level/</loc>
   </url><url>
     <loc>https://ornlu-is.github.io/docs/example/hidden/</loc>
   </url><url>
