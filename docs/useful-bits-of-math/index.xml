@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Project Minus</title>
+    <link>https://ornlu-is.github.io/docs/useful-bits-of-math/</link>
+    <description>Recent content on Project Minus</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://ornlu-is.github.io/docs/useful-bits-of-math/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Sum Between Two Integers</title>
+      <link>https://ornlu-is.github.io/docs/useful-bits-of-math/sum-between-two-integers/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ornlu-is.github.io/docs/useful-bits-of-math/sum-between-two-integers/</guid>
+      <description>Sum Between Two Integers #  Let   \(a, b \in \mathbb{Z}\)  , with  \( b &amp;gt; a \)  , be any two given integers. The sum of all integers between these two number,  \( S \)  , is given by  \[S = \frac{(b-a&amp;#43;1)(a&amp;#43;b)}{2}.\]  Proof #  Note that the sum  \( S \)  can be written in two equivalent forms  \[S = a &amp;#43; (a&amp;#43;1) &amp;#43; \dots &amp;#43; b,\]   \[S = b &amp;#43; (b-1) &amp;#43; \dots &amp;#43; a.</description>
+    </item>
+    
+  </channel>
+</rss>
