@@ -5,18 +5,19 @@
   <meta name="generator" content="Hugo 0.81.0" />
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Time Series #  some dummy text">
-<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://ornlu-is.github.io/docs/time-series/" />
+<meta name="description" content="Sum of Numbers Between Two Integers #  Let   \(a, b \in \mathbb{Z}\)  , with  \( b &gt; a \)  , be any two given integers. The sum of all integers between these two number,  \(S\)  , is given by  \[S = \frac{(b-a&#43;1)(a&#43;b)}{2}.\]  Proof #  Note that the sum  \( S \)  can be written in two equivalent forms  \[S = a &#43; (a&#43;1) &#43; \dots &#43; b,\]   \[S = b &#43; (b-1) &#43; \dots &#43; a.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Sum of Numbers Between Two Integers" />
+<meta property="og:description" content="Sum of Numbers Between Two Integers #  Let   \(a, b \in \mathbb{Z}\)  , with  \( b &gt; a \)  , be any two given integers. The sum of all integers between these two number,  \(S\)  , is given by  \[S = \frac{(b-a&#43;1)(a&#43;b)}{2}.\]  Proof #  Note that the sum  \( S \)  can be written in two equivalent forms  \[S = a &#43; (a&#43;1) &#43; \dots &#43; b,\]   \[S = b &#43; (b-1) &#43; \dots &#43; a." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ornlu-is.github.io/docs/useful-bits-of-math/sum-of-numbers-between-two-integers/" /><meta property="article:section" content="docs" />
 
-<title>Time Series | Project Minus</title>
+
+
+<title>Sum of Numbers Between Two Integers | Project Minus</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.8091d5687f075a270b3718eb6b17814d02c25a1d6982dc132456009cfc95f06e.css" integrity="sha256-gJHVaH8HWicLNxjraxeBTQLCWh1pgtwTJFYAnPyV8G4=">
 <script defer src="/en.search.min.69d54ca914206940007f8dec1c1451f56936952f9f0b94b3fe967817bddfb91d.js" integrity="sha256-adVMqRQgaUAAf43sHBRR9Wk2lS&#43;fC5Sz/pZ4F73fuR0="></script>
-<link rel="alternate" type="application/rss+xml" href="https://ornlu-is.github.io/docs/time-series/index.xml" title="Project Minus" />
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -223,9 +224,9 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-76a7b950b11d5502e4706072982be2d9" class="toggle" checked />
+    <input type="checkbox" id="section-76a7b950b11d5502e4706072982be2d9" class="toggle"  />
     <label for="section-76a7b950b11d5502e4706072982be2d9" class="flex justify-between">
-      <a href="https://ornlu-is.github.io/docs/time-series/" class="active">Time Series</a>
+      <a href="https://ornlu-is.github.io/docs/time-series/" class="">Time Series</a>
       <span>▾</span>
     </label>
   
@@ -258,7 +259,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-f8332c16e494c2b81b041324d5f421a5" class="toggle"  />
+    <input type="checkbox" id="section-f8332c16e494c2b81b041324d5f421a5" class="toggle" checked />
     <label for="section-f8332c16e494c2b81b041324d5f421a5" class="flex justify-between">
       <a href="https://ornlu-is.github.io/docs/useful-bits-of-math/" class="">Useful Bits of Math</a>
       <span>▾</span>
@@ -275,7 +276,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="https://ornlu-is.github.io/docs/useful-bits-of-math/sum-of-numbers-between-two-integers/" class="">Sum of Numbers Between Two Integers</a>
+    <a href="https://ornlu-is.github.io/docs/useful-bits-of-math/sum-of-numbers-between-two-integers/" class=" active">Sum of Numbers Between Two Integers</a>
   
 
         </li>
@@ -504,7 +505,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>Time Series</strong>
+  <strong>Sum of Numbers Between Two Integers</strong>
 
   <label for="toc-control">
     
@@ -518,7 +519,11 @@ https://github.com/alex-shpak/hugo-book
   <aside class="hidden clearfix">
     
   
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#proof">Proof</a></li>
+  </ul>
+</nav>
 
 
 
@@ -529,11 +534,66 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown"><h1 id="time-series">
-  Time Series
-  <a class="anchor" href="#time-series">#</a>
+  <article class="markdown"><h1 id="sum-of-numbers-between-two-integers">
+  Sum of Numbers Between Two Integers
+  <a class="anchor" href="#sum-of-numbers-between-two-integers">#</a>
 </h1>
-<p>some dummy text</p>
+<p>Let 
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \(a, b \in \mathbb{Z}\)
+</span>
+, with <span>
+  \( b &gt; a \)
+</span>
+, be any two given integers. The sum of all integers between these two number, <span>
+  \(S\)
+</span>
+, is given by
+<span>
+  \[S = \frac{(b-a&#43;1)(a&#43;b)}{2}.\]
+</span>
+</p>
+<h2 id="proof">
+  Proof
+  <a class="anchor" href="#proof">#</a>
+</h2>
+<p>Note that the sum <span>
+  \( S \)
+</span>
+ can be written in two equivalent forms
+<span>
+  \[S = a &#43; (a&#43;1) &#43; \dots &#43; b,\]
+</span>
+
+<span>
+  \[S = b &#43; (b-1) &#43; \dots &#43; a.\]
+</span>
+</p>
+<p>Adding these two expressions yields
+<span>
+  \[2S = (a&#43;b) &#43; (a&#43;1&#43;b-1) &#43; \dots &#43; (b &#43; a).\]
+</span>
+</p>
+<p>Since between <span>
+  \( a \)
+</span>
+ and <span>
+  \( b \)
+</span>
+ there are <span>
+  \( b-a&#43;1 \)
+</span>
+ numbers, the above equation becomes
+<span>
+  \[2S = (b-a&#43;1)(a&#43;b) \Leftrightarrow S = \frac{(b-a&#43;1)(a&#43;b)}{2},\]
+</span>
+
+thus finishing the proof. <span>
+  \(_{\blacksquare}\)
+</span>
+</p>
 </article>
  
       
@@ -568,7 +628,11 @@ https://github.com/alex-shpak/hugo-book
       <div class="book-toc-content">
         
   
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#proof">Proof</a></li>
+  </ul>
+</nav>
 
 
  
