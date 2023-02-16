@@ -1,7 +1,7 @@
 baseURL = "https://ornlu-is.github.io"
 theme = "LoveIt"
 title = "Luís Franco"
-
+publishDir = "docs"
 languageCode = "en"
 languageName = "English"
 
