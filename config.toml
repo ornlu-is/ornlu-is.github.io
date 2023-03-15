@@ -18,6 +18,10 @@ enableGitInfo = true
 # whether to use emoji code
 enableEmoji = true
 
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
 # ignore some build errors
 ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
 
@@ -188,7 +192,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       #  title shown in home page (HTML format is supported)
       title = ""
       # subtitle shown in home page (HTML format is supported)
-      subtitle = "random deep dives on computer science and mathematics"
+      subtitle = "I write about stuff and sometimes its interesting"
       # whether to use typeit animation for subtitle
       typeit = true
       # whether to show social links
