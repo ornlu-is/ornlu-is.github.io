@@ -19,7 +19,6 @@ enableGitInfo = true
 enableEmoji = true
 
 [taxonomies]
-  tag = "tags"
   category = "categories"
 
 # ignore some build errors
@@ -44,16 +43,16 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     url = "/posts/"
     # title will be shown when you hover on this menu link
     title = ""
+  #[[menu.main]]
+  #  weight = 2
+  #  identifier = "tags"
+  #  pre = ""
+  #  post = ""
+  #  name = "Tags"
+  #  url = "/tags/"
+  #  title = ""
   [[menu.main]]
     weight = 2
-    identifier = "tags"
-    pre = ""
-    post = ""
-    name = "Tags"
-    url = "/tags/"
-    title = ""
-  [[menu.main]]
-    weight = 3
     identifier = "categories"
     pre = ""
     post = ""
@@ -61,7 +60,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     url = "/categories/"
     title = ""
   [[menu.main]]
-    weight = 4
+    weight = 3
     identifier = "about"
     pre = ""
     post = ""
