@@ -197,7 +197,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       disclaimer = ""
     # Home page posts
     [params.home.posts]
-      enable = false
+      enable = true
       # special amount of posts in each home posts page
       paginate = 6
       #  replaced with hiddenFromHomePage in params.page
