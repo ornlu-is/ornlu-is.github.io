@@ -149,9 +149,9 @@ permissions as shown in:
 https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md
 ```
 
-So a bunch of stuff happened. At least `microk8s` told us what happened instead of making all of these operations under the hood which means that now we have the pleasure of figuring out what the hell just happened! On line 1, `microk8s` seems to just be searching for the repository with the desired add-on and line 2 begins the process of enabling it. This is where the fun really begins. The first step in enabling the Kubernestes dashboard is, on line 3, is to search for a repository for the `metrics-server` and begin enabling it on line 4.
+So a bunch of stuff happened. At least `microk8s` told us what happened instead of making all of these operations under the hood which means that now we have the pleasure of figuring out what the hell just happened! On line 1, `microk8s` seems to just be searching for the repository with the desired add-on and line 2 begins the process of enabling it. This is where the fun really begins. The first step in enabling the Kubernetes dashboard is, on line 3, is to search for a repository for the `metrics-server` and begin enabling it on line 4.
 
-Each Kubernetes node has a kubelet which is responsible for managing pod deployments and instructing the container runtime to start or stop containers are required, and the `metrics-server` scrapes resource metrics from each existing kubelet and exposes them in the Kubernetes API server via the metrics API to be used by the Horizontal and Vertical Pod Autoscalers (HPA and VPA). It should be noted that its purpose is not to serve as a monitoring solution, its metrics are to be used by HPA and VPA, but the metrics it collects do show up in the Kubernetes dashboard, so that is why it is has to be enabled. It is only after the `metrics-server` is enabled that `microk8s` will begin creating the objects required to enable the dashboard. 
+Each Kubernetes node has a kubelet which is a service responsible for managing pod deployments and instructing the container runtime to start or stop containers are required, and the `metrics-server` scrapes resource metrics from each existing kubelet and exposes them in the Kubernetes API server via the metrics API to be used by the Horizontal and Vertical Pod Autoscalers (HPA and VPA). It should be noted that its purpose is not to serve as a monitoring solution, its metrics are to be used by HPA and VPA, but the metrics it collects do show up in the Kubernetes dashboard, so that is why it is has to be enabled. It is only after the `metrics-server` is enabled that `microk8s` will begin creating the objects required to enable the dashboard. 
 
 To access the dashboard, run `microk8s dashboard-proxy`, which outputs:
 ```plaintext
@@ -229,7 +229,7 @@ docker build . -f Dockerfile -t 'askeladden'
 ```
 
 {{< admonition type=note title="docker build . -f Dockerfile -t 'askeladden'" open=true >}}
-When we give the Docker CLI the `build` command, we are telling it to build an image. Images are later used to create containers, which are instances of a given image. The `.` refers to the path of the context, which, in the context (ha-ha, funny guy) of Docker, refers to the set of files that can be used by the build process. The `-f` is shorthand notation for `--file` and is the path to the `Dockerfile`, while `-t` is short for `--tag` and allows us to name/tag our image. In this case, I only named it.
+When we give the Docker CLI the `build` command, we are telling it to build an image. Images are later used to create containers, which are running instances of a given image. The `.` refers to the path of the context, which, in the context (ha-ha, funny guy) of Docker, refers to the set of files that can be used by the build process. The `-f` is shorthand notation for `--file` and is the path to the `Dockerfile`, while `-t` is short for `--tag` and allows us to name/tag our image. In this case, I only named it.
 {{< /admonition >}}
 
 We can check our image by listing all images built by Docker using `docker images`:
