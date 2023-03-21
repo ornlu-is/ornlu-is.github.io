@@ -1,0 +1,208 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>Adventures in Overengineering 2: a better Docker image - Luís Franco</title><meta name=Description content="Using slimmer Docker images because I do not want to buy a new hard drive."><meta property="og:title" content="Adventures in Overengineering 2: a better Docker image"><meta property="og:description" content="Using slimmer Docker images because I do not want to buy a new hard drive."><meta property="og:type" content="article"><meta property="og:url" content="https://ornlu-is.github.io/overengineering_adventures_2/"><meta property="og:image" content="https://ornlu-is.github.io/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2023-03-21T20:25:26+00:00"><meta property="article:modified_time" content="2023-03-21T22:54:26+00:00"><meta property="og:site_name" content="Super website"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://ornlu-is.github.io/logo.png"><meta name=twitter:title content="Adventures in Overengineering 2: a better Docker image"><meta name=twitter:description content="Using slimmer Docker images because I do not want to buy a new hard drive."><meta name=application-name content="My cool site"><meta name=apple-mobile-web-app-title content="My cool site"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://ornlu-is.github.io/overengineering_adventures_2/><link rel=prev href=https://ornlu-is.github.io/overengineering_adventures_1/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Adventures in Overengineering 2: a better Docker image","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/ornlu-is.github.io\/overengineering_adventures_2\/"},"genre":"posts","wordcount":1362,"url":"https:\/\/ornlu-is.github.io\/overengineering_adventures_2\/","datePublished":"2023-03-21T20:25:26+00:00","dateModified":"2023-03-21T22:54:26+00:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Luís Franco"},"description":"Using slimmer Docker images because I do not want to buy a new hard drive."}</script></head><body data-header-desktop=auto data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"dark"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"dark"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Luís Franco">Luís Franco</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>Posts </a><a class=menu-item href=/categories/>Categories </a><a class=menu-item href=/about/>About </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder="Search titles or contents..." id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></span></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Luís Franco">Luís Franco</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder="Search titles or contents..." id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Cancel</a></div><a class=menu-item href=/posts/ title>Posts</a><a class=menu-item href=/categories/ title>Categories</a><a class=menu-item href=/about/ title>About</a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Adventures in Overengineering 2: a better Docker image</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Luís Franco</a>
+</span>&nbsp;<span class=post-category>included in <a href=/categories/adventures-in-overengineering/><i class="far fa-folder fa-fw" aria-hidden=true></i>Adventures in Overengineering</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2023-03-21>2023-03-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;1362 words&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;7 minutes&nbsp;</div></div><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#better-docker-image>Better Docker image?</a></li><li><a href=#deploying-a-container-with-the-slim-docker-image>Deploying a container with the slim Docker image</a></li></ul></nav></div></div><div class=content id=content><p>Last post, we managed to do the following:</p><ul><li>created a Kubernetes clusters using <code>microk8s</code>;</li><li>created a very simple Golang web server and its Docker image;</li><li>created a Kubernetes deployment for the web server and a service to expose it.</li></ul><p>In this post, we will improve on the Docker image we previously built because we can always do better and that is the point of this whole series: each post must represent an improvement on the previous post, either by enhancing capabilities or employing better practices. And, if I didn&rsquo;t do this post now, I would very quickly run out of space in my hard drive.</p><div class="details admonition tip open"><div class="details-summary admonition-title"><i class="icon fas fa-lightbulb fa-fw" aria-hidden=true></i>Link to the code<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><a href=https://github.com/ornlu-is/askeladden/tree/v0.2 target=_blank rel="noopener noreffer">https://github.com/ornlu-is/askeladden/tree/v0.2</a></div></div></div><h2 id=better-docker-image>Better Docker image?</h2><p>It isn&rsquo;t immediately clear what is meant by a &ldquo;better Docker image&rdquo;, so let&rsquo;s recap, it will help us make some sense out of this and understand why it is a good change to make. Last time, the <code>Dockerfile</code> that we created was the following:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Dockerfile data-lang=Dockerfile><span class=line><span class=cl><span class=k>FROM</span><span class=s> golang:1.19</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>ADD</span> . /askeladden<span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>WORKDIR</span><span class=s> /askeladden</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>RUN</span> go build<span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>ENTRYPOINT</span> ./askeladden<span class=err>
+</span></span></span></code></pre></td></tr></table></div></div><p>This resulted in a Docker image based on the official Golang 1.19 image with out application shipped alongside it. We still have this image saved on our local registry so let&rsquo;s take a look at it using <code>docker images</code>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-plaintext data-lang=plaintext><span class=line><span class=cl>REPOSITORY                   TAG        IMAGE ID       CREATED      SIZE
+</span></span><span class=line><span class=cl>askeladden                   latest     8324675e97c1   6 days ago   1e+03MB
+</span></span></code></pre></td></tr></table></div></div><p>It seems that our Docker image is about 1Gb in size, which is a tad bit too much. The reason the image is so large is because it has Golang installed, which we don&rsquo;t actually require for any purpose after the web server is built. The idea is simple: we create a container with Golang 1.19 and build our binary, just as before. But after building it, we create another container, based on a Debian image, and simply inject our binary into it. We can then discard the container we used for building the web server and we are left with a slimmer Docker image.</p><p>So the first step is to pick the Debian image that we&rsquo;ll use. We have no special preference for the Debian version, so we can use the latest version, which is called <code>bookworm</code>. However, we will pick the <code>bookworm-slim</code> variant, which is a Debian <code>bookworm</code> version, but without extra files that aren&rsquo;t usually required by containers, such as manual pages and documentation.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Dockerfile data-lang=Dockerfile><span class=line><span class=cl><span class=k>FROM</span><span class=s> golang:1.19 AS builder</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>ADD</span> . /askeladden<span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>WORKDIR</span><span class=s> /askeladden</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>RUN</span> go build<span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>FROM</span><span class=s> debian:bookworm-slim</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>COPY</span> --from<span class=o>=</span>builder /askeladden/askeladden /usr/bin/askeladden<span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>ENTRYPOINT</span> ./usr/bin/askeladden<span class=err>
+</span></span></span></code></pre></td></tr></table></div></div><p>Note that we gave the alias <code>builder</code> to our first container by specifying <code>AS builder</code> and then injected the binary built inside it into the slimmed docker image with <code>COPY --from=builder</code>. Running <code>docker images</code> now gives us:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-plaintext data-lang=plaintext><span class=line><span class=cl>REPOSITORY                   TAG        IMAGE ID       CREATED         SIZE
+</span></span><span class=line><span class=cl>askeladden                   latest     c2c2327d336a   5 minutes ago   81.1MB
+</span></span></code></pre></td></tr></table></div></div><p>Which means that our new image is only 81.1Mb in size, less than 10 times what the previous image was. To check if this image is working as excepted, let us create a container based on it and publish it&rsquo;s port so we can see our web server working by running:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-plaintext data-lang=plaintext><span class=line><span class=cl>docker run -d -p 8080:8090 askeladden
+</span></span></code></pre></td></tr></table></div></div><p>Navigating to <code>http://localhost:8080/</code> in a browser shows that this is working as expected.</p><h2 id=deploying-a-container-with-the-slim-docker-image>Deploying a container with the slim Docker image</h2><p>This is great, now we have to get our image into the cluster&rsquo;s registry. So first we tag it:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-plaintext data-lang=plaintext><span class=line><span class=cl>docker tag &lt;image_ID&gt; localhost:32000/askeladden:slim
+</span></span></code></pre></td></tr></table></div></div><p>Then we push it into the cluster&rsquo;s registry:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-plaintext data-lang=plaintext><span class=line><span class=cl>docker push localhost:32000/askeladden:slim
+</span></span></code></pre></td></tr></table></div></div><p>We can check if this image was successfully pushed into the cluster&rsquo;s registry by running:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-plaintext data-lang=plaintext><span class=line><span class=cl>curl http://localhost:32000/v2/askeladden/tags/list | jq &#39;.&#39;
+</span></span></code></pre></td></tr></table></div></div><div class="details admonition warning open"><div class="details-summary admonition-title"><i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden=true></i>curl and jq<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content>If you do not have <code>curl</code> nor <code>jq</code> installed you will obviously not be able to run the command above. But you should install them, they come in handy.</div></div></div><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw" aria-hidden=true></i>curl http://localhost:32000/v2/askeladden/tags/list | jq '.'<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><p><code>curl</code>, which stands for &ldquo;Client for URL&rdquo;, is simply a command-line tool that can be used to transfer data to or from a web server. In this case, if we had simply written <code>curl http://localhost:32000/v2/askeladden/tags/list</code>, we would&rsquo;ve obtained the desired result in JSON format but not &ldquo;prettified&rdquo;. This is a fairly short output, so it isn&rsquo;t really required to &ldquo;prettify&rdquo; it, but it&rsquo;s a good practice nonetheless. For that matter, we pipe the result, using the pipe <code>|</code> operator, into <code>jq</code> which is a simple JSON processor. The <code>'.'</code> part tells <code>jq</code> that the way we want our JSON to be processed, is that we do not want it processed at all, we are merely here for the cosmetic enhancements.</p><p>Alternatively, we could&rsquo;ve just navigated to <code>http://localhost:32000/v2/askeladden/tags/list</code> using a web browser, but it wouldn&rsquo;t look as cool as using the terminal.</p></div></div></div><p>The above command outputs the following:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;name&#34;</span><span class=p>:</span> <span class=s2>&#34;askeladden&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;tags&#34;</span><span class=p>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;registry&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;slim&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>Which means that our image is in the cluster&rsquo;s registry! However, our pod still isn&rsquo;t running the latest image. We can see that our pod is running with <code>mk get pods</code>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-plaintext data-lang=plaintext><span class=line><span class=cl>NAME                                         READY   STATUS    RESTARTS       AGE
+</span></span><span class=line><span class=cl>deployment-askeladden-dev-75c45dc7d9-r9hcf   1/1     Running   1 (112m ago)   6d
+</span></span></code></pre></td></tr></table></div></div><p>And we can inspect this pod using:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-plaintext data-lang=plaintext><span class=line><span class=cl>mk describe pod deployment-askeladden-dev-75c45dc7d9-r9hcf
+</span></span></code></pre></td></tr></table></div></div><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw" aria-hidden=true></i>kubectl describe pod [PodName]<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content>The <code>describe pod [PodName]</code> command prints out a bunch of information on the existing pod. In fact, its usage is more general than this, since we can use it to describe any type of Kubernetes object. Its syntax is fairly simple and intuitive, it&rsquo;s always <code>describe [ObjectType] [ObjectName]</code>.</div></div></div><p>This produces the following output:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-plaintext data-lang=plaintext><span class=line><span class=cl>Name:             deployment-askeladden-dev-75c45dc7d9-r9hcf
+</span></span><span class=line><span class=cl>Namespace:        askeladden-dev
+</span></span><span class=line><span class=cl>Priority:         0
+</span></span><span class=line><span class=cl>Service Account:  default
+</span></span><span class=line><span class=cl>Node:             luis-thinkpad-t490/192.168.1.83
+</span></span><span class=line><span class=cl>Start Time:       Wed, 15 Mar 2023 21:56:14 +0000
+</span></span><span class=line><span class=cl>Labels:           app=askeladden
+</span></span><span class=line><span class=cl>                  pod-template-hash=75c45dc7d9
+</span></span><span class=line><span class=cl>Annotations:      cni.projectcalico.org/containerID: a1ce6f36e0f31e62f1d8574b0e02579f441490c66c2c22f60f8440c69aabfe84
+</span></span><span class=line><span class=cl>                  cni.projectcalico.org/podIP: 10.1.68.19/32
+</span></span><span class=line><span class=cl>                  cni.projectcalico.org/podIPs: 10.1.68.19/32
+</span></span><span class=line><span class=cl>Status:           Running
+</span></span><span class=line><span class=cl>IP:               10.1.68.19
+</span></span><span class=line><span class=cl>IPs:
+</span></span><span class=line><span class=cl>  IP:           10.1.68.19
+</span></span><span class=line><span class=cl>Controlled By:  ReplicaSet/deployment-askeladden-dev-75c45dc7d9
+</span></span><span class=line><span class=cl>Containers:
+</span></span><span class=line><span class=cl>  askeladden:
+</span></span><span class=line><span class=cl>    Container ID:   containerd://3806e5e9dffe4fd9e9519e1dea1149af619d2d6bda25b9b39155699b383f65b1
+</span></span><span class=line><span class=cl>    Image:          localhost:32000/askeladden:registry
+</span></span><span class=line><span class=cl>    Image ID:       localhost:32000/askeladden@sha256:319994c8bbc2f0b69b5bdd26bfe3b0967e7858bd6426697b97c9c35b4da0b76a
+</span></span><span class=line><span class=cl>    Port:           &lt;none&gt;
+</span></span><span class=line><span class=cl>    Host Port:      &lt;none&gt;
+</span></span><span class=line><span class=cl>    State:          Running
+</span></span><span class=line><span class=cl>      Started:      Tue, 21 Mar 2023 20:23:02 +0000
+</span></span><span class=line><span class=cl>    Last State:     Terminated
+</span></span><span class=line><span class=cl>      Reason:       Unknown
+</span></span><span class=line><span class=cl>      Exit Code:    255
+</span></span><span class=line><span class=cl>      Started:      Wed, 15 Mar 2023 21:56:15 +0000
+</span></span><span class=line><span class=cl>      Finished:     Tue, 21 Mar 2023 20:22:42 +0000
+</span></span><span class=line><span class=cl>    Ready:          True
+</span></span><span class=line><span class=cl>    Restart Count:  1
+</span></span><span class=line><span class=cl>    Environment:    &lt;none&gt;
+</span></span><span class=line><span class=cl>    Mounts:
+</span></span><span class=line><span class=cl>      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-4cv2j (ro)
+</span></span><span class=line><span class=cl>Conditions:
+</span></span><span class=line><span class=cl>  Type              Status
+</span></span><span class=line><span class=cl>  Initialized       True 
+</span></span><span class=line><span class=cl>  Ready             True 
+</span></span><span class=line><span class=cl>  ContainersReady   True 
+</span></span><span class=line><span class=cl>  PodScheduled      True 
+</span></span><span class=line><span class=cl>Volumes:
+</span></span><span class=line><span class=cl>  kube-api-access-4cv2j:
+</span></span><span class=line><span class=cl>    Type:                    Projected (a volume that contains injected data from multiple sources)
+</span></span><span class=line><span class=cl>    TokenExpirationSeconds:  3607
+</span></span><span class=line><span class=cl>    ConfigMapName:           kube-root-ca.crt
+</span></span><span class=line><span class=cl>    ConfigMapOptional:       &lt;nil&gt;
+</span></span><span class=line><span class=cl>    DownwardAPI:             true
+</span></span><span class=line><span class=cl>QoS Class:                   BestEffort
+</span></span><span class=line><span class=cl>Node-Selectors:              &lt;none&gt;
+</span></span><span class=line><span class=cl>Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+</span></span><span class=line><span class=cl>                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+</span></span><span class=line><span class=cl>Events:
+</span></span><span class=line><span class=cl>  Type     Reason             Age                    From     Message
+</span></span><span class=line><span class=cl>  ----     ------             ----                   ----     -------
+</span></span><span class=line><span class=cl>  Warning  MissingClusterDNS  3m19s (x63 over 119m)  kubelet  pod: &#34;deployment-askeladden-dev-75c45dc7d9-r9hcf_askeladden-dev(ebd02f7f-cf55-45ba-be93-a03eb5e270e4)&#34;. kubelet does not have ClusterDNS IP configured and cannot create Pod using &#34;ClusterFirst&#34; policy. Falling back to &#34;Default&#34; policy.
+</span></span></code></pre></td></tr></table></div></div><p>That&rsquo;s a lot of text but we really only care about what is under <code>Containers/askeladden/Image</code>, which is <code>localhost:32000/askeladden:registry</code>. This is our old image, not the slim version of it. Which means we have to edit our deployment and apply it. In our <code>k8s/deployment.yaml</code> file, all we have to change is the last line so that it reads <code>image: localhost:32000/askeladden:slim</code>. Afterwards, running <code>mk apply -f k8s/deployment.yaml</code> will trigger the deployment with the new container image.</p><p>There is one cool detail about Kubernetes deployments. By default, they are configured to perform what is known as a rolling update. This means that, when a deployment is triggered, it will first create a new container, wait for it to run successfully, and only then terminate the old one. We can clearly see that if we type <code>mk get pods</code> a few seconds apart after triggering the deployment:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-plaintext data-lang=plaintext><span class=line><span class=cl>NAME                                         READY   STATUS        RESTARTS       AGE
+</span></span><span class=line><span class=cl>deployment-askeladden-dev-6b766588c5-hkn2x   1/1     Running       0              19s
+</span></span><span class=line><span class=cl>deployment-askeladden-dev-75c45dc7d9-r9hcf   1/1     Terminating   1 (127m ago)   6d
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-plaintext data-lang=plaintext><span class=line><span class=cl>NAME                                         READY   STATUS    RESTARTS   AGE
+</span></span><span class=line><span class=cl>deployment-askeladden-dev-6b766588c5-hkn2x   1/1     Running   0          34s
+</span></span></code></pre></td></tr></table></div></div><p>Navigating to <code>http://localhost:30008/</code> we can again check that our new container is, in fact, running as expected.</p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2023-03-21</span></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><span></span></div></div></div><div class=post-info-more><section class=post-tags></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/overengineering_adventures_1/ class=prev rel=prev title="Adventures in Overengineering 1: deploying a Golang web server"><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>Adventures in Overengineering 1: deploying a Golang web server</a></div></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>Luís Franco</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/katex/katex.min.css><link rel=stylesheet href=/lib/katex/copy-tex.min.css><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/katex/katex.min.js></script><script type=text/javascript src=/lib/katex/auto-render.min.js></script><script type=text/javascript src=/lib/katex/copy-tex.min.js></script><script type=text/javascript src=/lib/katex/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:30,type:"lunr"}}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>
