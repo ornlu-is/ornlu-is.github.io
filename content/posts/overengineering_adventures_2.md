@@ -64,7 +64,7 @@ REPOSITORY                   TAG        IMAGE ID       CREATED         SIZE
 askeladden                   latest     c2c2327d336a   5 minutes ago   81.1MB
 ```
 
-Which means that our new image is only 81.1Mb in size, less than 10 times what the previous image was. To check if this image is working as excepted, let us create a container based on it and publish it's port so we can see our web server working by running:
+Which means that our new image is only 81.1Mb in size, 10 times less than what the previous image was. To check if this image is working as excepted, let us create a container based on it and publish it's port so we can see our web server working by running:
 
 ```plaintext
 docker run -d -p 8080:8090 askeladden
