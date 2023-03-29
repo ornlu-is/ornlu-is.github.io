@@ -2,7 +2,7 @@
 title: "Adventures in Overengineering 3: manning the Helm"
 date: 2023-03-26T23:35:24+01:00
 categories: ["Adventures in Overengineering"]
-description: "Using helm on a local Kubernetes cluster"
+description: "Using helm to package kubernetes applications and deploying them on a local kubernetes microk8s cluster."
 draft: false
 ---
 

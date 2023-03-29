@@ -2,7 +2,7 @@
 title: "Adventures in Overengineering 1: deploying a Golang web server"
 date: 2023-03-15T20:46:20Z
 categories: ["Adventures in Overengineering"]
-description: "Creating a Golang web server but with all the infrastructure required for it to run."
+description: "Creating a local kubernetes cluster with microk8s, creating a Golang web server and its Docker image and then deploying it to the microk8s kubernetes cluster."
 draft: false
 ---
 

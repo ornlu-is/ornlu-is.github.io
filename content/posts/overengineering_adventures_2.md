@@ -2,7 +2,7 @@
 title: "Adventures in Overengineering 2: a better Docker image"
 date: 2023-03-21T20:25:26Z
 categories: ["Adventures in Overengineering"]
-description: "Using slimmer Docker images because I do not want to buy a new hard drive."
+description: "Deploying a slim Docker image into a microk8s kubernetes local cluster."
 draft: false
 ---
 
