@@ -3,7 +3,7 @@ title: "Adventures in Overengineering 4: using Terraform for Kubernetes namespac
 date: 2023-03-29T22:57:58+01:00
 categories: ["Adventures in Overengineering"]
 description: "Using Terraform to create a Kubernetes namespace in a local microk8s cluster and migrating a Kubernetes application to it using Helm"
-draft: true
+draft: false
 ---
 
 This post has one very simple and short goal: to use Terraform to create a Kubernetes namespace to which we will migrate the application that we've been working on. Now, you might ask yourself: "Is it overkill to use Terraform just to create Kubernetes namespaces?" To which the answer is: yes, yes it is. But will that stop me? Short answer "no", long answer "no, it will not". The name of the series is "*Adventures in Overengineering*" and I plan to remain faithful to that name until I run out of ideas.
@@ -14,9 +14,7 @@ https://github.com/ornlu-is/askeladden/tree/v0.4
 
 ## What is Terraform? 
 
-INTRODUCE THE INFRASTRUCTURE AS CODE PARADIGM AND HOW TERRAFORM FITS INTO THIS.
-
-
+A concept that quickly rose to popularity in recent times is the concept of infrastructure as code, IaC, where, as the name suggests, infrastructure is managed and provisioned via code instead of manual processes. This has a number of advantages, such as being able to fully leverage a version control system to track, and possibly rollback, infrastructure. Naturally, it also makes distributing infrastructure configuration across developers and teams much easier. One popular tool for this paradigm, is Terraform, which takes a declarative approach to IaC, by allowing developers to write files which declare the currently desired state of the infrastructure. There are many other technologies that can be used for this purpose, but Terraform is the one I am used to using, so that is what I'm going to go with.
 
 ## Setting up Terraform with a local Kubernetes cluster
 
@@ -338,7 +336,7 @@ mk config use-context askeladden-staging
 If we now type `mk config current-context`, we get `askeladden-staging` as our output. We are going to delete the `askeladden-dev` so there is no point in keeping the `askeladden-dev` context around. We delete it through:
 
 ```plaintext
-microk8s kubectl config delete-context askeladden-dev
+mk config delete-context askeladden-dev
 ```
 
 Finally, we will delete our namespace using:
@@ -346,5 +344,7 @@ Finally, we will delete our namespace using:
 ```plaintext
 mk delete namespace askeladden-dev
 ```
+
+We can delete the `infrastructure/k8s/namespace.yaml` file that we had since it is no longer required.
 
 And we are done! We have successfully used Terraform to create a new Kubernetes namespace in our `microk8s` cluster and migrated our web server to it using Helm!
