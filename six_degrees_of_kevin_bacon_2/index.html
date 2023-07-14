@@ -1,0 +1,512 @@
+<!doctype html><html lang=en><head><script async src="https://www.googletagmanager.com/gtag/js?id=G-G300HG9GRT"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-G300HG9GRT")</script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>Six Degrees of Kevin Bacon 2: Web Scraping Movie Data - Luís Franco</title><meta name=Description content="Web scraping movie and actor information to build a graph of all actors, connecting them via movies they worked together on."><meta property="og:title" content="Six Degrees of Kevin Bacon 2: Web Scraping Movie Data"><meta property="og:description" content="Web scraping movie and actor information to build a graph of all actors, connecting them via movies they worked together on."><meta property="og:type" content="article"><meta property="og:url" content="https://ornlu-is.github.io/six_degrees_of_kevin_bacon_2/"><meta property="og:image" content="https://ornlu-is.github.io/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2023-07-14T12:17:55+01:00"><meta property="article:modified_time" content="2023-07-14T17:44:17+01:00"><meta property="og:site_name" content="Super website"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://ornlu-is.github.io/logo.png"><meta name=twitter:title content="Six Degrees of Kevin Bacon 2: Web Scraping Movie Data"><meta name=twitter:description content="Web scraping movie and actor information to build a graph of all actors, connecting them via movies they worked together on."><meta name=application-name content="My cool site"><meta name=apple-mobile-web-app-title content="My cool site"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://ornlu-is.github.io/six_degrees_of_kevin_bacon_2/><link rel=prev href=https://ornlu-is.github.io/six_degrees_of_kevin_bacon_1/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Six Degrees of Kevin Bacon 2: Web Scraping Movie Data","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/ornlu-is.github.io\/six_degrees_of_kevin_bacon_2\/"},"genre":"posts","wordcount":2192,"url":"https:\/\/ornlu-is.github.io\/six_degrees_of_kevin_bacon_2\/","datePublished":"2023-07-14T12:17:55+01:00","dateModified":"2023-07-14T17:44:17+01:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Luís Franco"},"description":"Web scraping movie and actor information to build a graph of all actors, connecting them via movies they worked together on."}</script></head><body data-header-desktop=auto data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"dark"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"dark"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Luís Franco">Luís Franco</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>Posts </a><a class=menu-item href=/categories/>Categories </a><a class=menu-item href=/about/>About </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder="Search titles or contents..." id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></span></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Luís Franco">Luís Franco</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder="Search titles or contents..." id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Cancel</a></div><a class=menu-item href=/posts/ title>Posts</a><a class=menu-item href=/categories/ title>Categories</a><a class=menu-item href=/about/ title>About</a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Six Degrees of Kevin Bacon 2: Web Scraping Movie Data</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Luís Franco</a>
+</span>&nbsp;<span class=post-category>included in <a href=/categories/six-degrees-of-kevin-bacon/><i class="far fa-folder fa-fw" aria-hidden=true></i>Six Degrees of Kevin Bacon</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2023-07-14>2023-07-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;2192 words&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;11 minutes&nbsp;</div></div><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#a-plan-for-crawling-omdb>A plan for crawling OMDB</a></li><li><a href=#getting-the-movie-links>Getting the movie links</a></li><li><a href=#extracting-cast-data>Extracting cast data</a></li><li><a href=#next-steps>Next steps</a></li></ul></nav></div></div><div class=content id=content><div class="details admonition tip open"><div class="details-summary admonition-title"><i class="icon fas fa-lightbulb fa-fw" aria-hidden=true></i>Other posts in this series<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><ul><li><a href=https://ornlu-is.github.io/six_degrees_of_kevin_bacon_1/ target=_blank rel="noopener noreffer">Six Degrees of Kevin Bacon 1: Introduction</a></li></ul></div></div></div><p>To achieve the goal of building a social graph for movie actors, the first step is to gather data. For that matter, I will be scraping data from the <a href=https://www.omdb.org target=_blank rel="noopener noreffer">Open Media Database (OMDB)</a>
+, which is a free non-commercial database for film media.</p><h2 id=a-plan-for-crawling-omdb>A plan for crawling OMDB</h2><p>The OMDB is organized very conveniently for my purposes. The website has an encyclopedia section where we can pick any given year and it will list all movies in the chosen year,<em>e.g.</em>, the page for the year 2023:</p><ul><li><a href=https://www.omdb.org/en/de/encyclopedia/year/2023/index/1 target=_blank rel="noopener noreffer">https://www.omdb.org/en/de/encyclopedia/year/2023/index/1</a></li></ul><p>The link above takes us to the first page containing media from 2023. This link also gives us a hint on how we might crawl the website. More specifically, the <code>/year/2023/</code> part of the link looks <em>very</em> convenient. If we change this to, say <code>/year/2022/</code>, we get the first page of movies for 2022! In short, we have a very easy of navigating years, we can just manually pick them (and we should be safe because it takes a whole year for a year to elapse). Additionally, the link terminates with <code>/index/1</code>. At the bottom of this page, we have the option of navigating to the next set of movies that came out in 2023:</p><figure><img src=/images/six_degrees_of_kevin_bacon_2/omdb_next_page.png><figcaption><h4>Pagination in OMDB</h4></figcaption></figure><p>Clicking the box for the second page, takes us to a new webpage with the link:</p><ul><li><a href=https://www.omdb.org/en/de/encyclopedia/year/2023/index/2 target=_blank rel="noopener noreffer">https://www.omdb.org/en/de/encyclopedia/year/2023/index/2</a></li></ul><p>Convenience galore, all that changed in the link was just the last number!</p><p>Naively, we might think that a good plan for iterating over the pages for a given year would be to start at the first page, collect the information required, find the link for the next page, navigate to it and then repeat the process until we run out of pages. To understand why this probably isn&rsquo;t the most viable option, let us inspect the pagination element:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>div</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;pagination&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;pagination&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>   <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>li</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;disablepage&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>         <span class=p>&lt;</span><span class=nt>span</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>         «<span class=ni>&amp;nbsp;</span>previous
+</span></span><span class=line><span class=cl>         <span class=p>&lt;/</span><span class=nt>span</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>li</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;currentpage&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>         <span class=p>&lt;</span><span class=nt>span</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>         1
+</span></span><span class=line><span class=cl>         <span class=p>&lt;/</span><span class=nt>span</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>         <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;/en/de/encyclopedia/year/2023/index/2&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>         2
+</span></span><span class=line><span class=cl>         <span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>         <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;/en/de/encyclopedia/year/2023/index/3&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>         3
+</span></span><span class=line><span class=cl>         <span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>         ...<span class=ni>&amp;nbsp;</span>
+</span></span><span class=line><span class=cl>         <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;/en/de/encyclopedia/year/2023/index/18&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>         18
+</span></span><span class=line><span class=cl>         <span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>li</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;nextpage&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>         <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;javascript:void(0);&#34;</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;nextpage&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>         Next<span class=ni>&amp;nbsp;</span>»
+</span></span><span class=line><span class=cl>         <span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>   <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>As we can see, the <code>&lt;li class="nextpage"></code> contains an anchor element but this element&rsquo;s <code>href</code> attribute does not contain a link. But convenience is on our side again because the pagination in OMDB always shows the last possible page we can navigate to! This means that, to get all pages for a given year, all we have to do is scrape the first one and extract the number of the last page. Then, the links all pages in between the first and last page can be obtained by simply incrementing <code>/index/1</code> until we reach <code>/index/&lt;lastpage></code>.</p><p>Note that the list item for the last page does not contain any attribute that allows us to distinguish it from all others, but there is one list item that does, and that is the one corresponding to the next page, which always shows up after the link for the last page and has the attribute <code>class</code> with the value <code>nextpage</code>. So, in essence, we just need to locate the <code>div</code> element that has an <code>id</code> attribute with value <code>pagination</code> and, in its child elements, locate the <code>li</code> element with the attribute <code>class</code> and value <code>nextpage</code> and then get its previous sibling, that holds the information on the last page.</p><h2 id=getting-the-movie-links>Getting the movie links</h2><p>We have a plan to get all the pages for all the years, but we have yet to obtain the actual movie links. Fortunately, in each page, there is a <code>div</code> element with the attribute <code>id</code> and value <code>results</code> which holds, you guessed it, the movies in the page! For the last page of 2019, that HTML element looks like this:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>div</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;results&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>   <span class=p>&lt;</span><span class=nt>div</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;search-listing-70&#34;</span> <span class=na>style</span><span class=o>=</span><span class=s>&#34;float: left; overflow:hidden;&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>div</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;items-for-page-70&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>         <span class=p>&lt;</span><span class=nt>div</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;movie_search_result_172562&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;result-box&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;image&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>               <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;/en/de/movie/172562-kase-und-blei&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>               <span class=p>&lt;</span><span class=nt>img</span> <span class=na>alt</span><span class=o>=</span><span class=s>&#34;&#34;</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;https://www.omdb.org/images/misc/no-thumbnail.png?1319773240&#34;</span> <span class=na>width</span><span class=o>=</span><span class=s>&#34;92&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>               <span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>               <span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>               <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;votebar&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>                  <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;mediumvote&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;0.00&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>                     <span class=p>&lt;</span><span class=nt>div</span> <span class=na>style</span><span class=o>=</span><span class=s>&#34;width: 0.00%&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>                     <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>                  <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>               <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;link&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>               <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;/en/de/movie/172562-kase-und-blei&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;Movie: Käse und Blei&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>               Käse und Blei
+</span></span><span class=line><span class=cl>               <span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>               <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;small&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>                  2019
+</span></span><span class=line><span class=cl>               <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>         <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>   <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>The HTML element we can easily scope out is</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;link&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>   <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;/en/de/movie/172562-kase-und-blei&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;Movie: Käse und Blei&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>   Käse und Blei
+</span></span><span class=line><span class=cl>   <span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>   <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;small&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      2019
+</span></span><span class=line><span class=cl>   <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>because we can identify it via the <code>class</code> attribute that has the value <code>link</code>. Then, all we need to do is fetch the value of the <code>href</code> attribute of the anchor element to get the portion of the link that we have to append to <code>https://www.omdb.org</code> to get a movie link and, additionally, we can also extract this element&rsquo;s data to get the movie&rsquo;s name.</p><p>There is one last detail about extracting a movie link: sometimes, OMDB another hyperlink associated with each movie. If you look closely at the screenshot above, you can see that some movies&rsquo; name is prefixed by a small arrow. Unfortunately, this small arrow has the exact same hyperref value as the link we are interested, meaning that we get duplicated links. While we could solve this with a slightly more complicated scraping strategy, we can also tackle this by implementing deduplication which will be sufficiently efficient since the number of movies per page is small (max. 24).</p><h2 id=extracting-cast-data>Extracting cast data</h2><p>Now that we have a way to get all the links for all movies, we have to think about how we are extracting the cast. When we navigate to a given movie&rsquo;s link, we see that there is a clickable tab named &ldquo;Crew/Cast&rdquo;. Clicking on it takes us to a page whose link is the same as the movie&rsquo;s link but affixed with <code>/cast</code>, <em>e.g.</em></p><ul><li><a href=https://www.omdb.org/en/de/movie/67669-how-to-train-your-dragon-the-hidden-world/cast target=_blank rel="noopener noreffer">https://www.omdb.org/en/de/movie/67669-how-to-train-your-dragon-the-hidden-world/cast</a></li></ul><p>and is filled with information on who worked on the movie. Particularly, there is a section named &ldquo;Actors&rdquo; where the data we are looking for is. Inspecting this element we get:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span><span class=lnt>122
+</span><span class=lnt>123
+</span><span class=lnt>124
+</span><span class=lnt>125
+</span><span class=lnt>126
+</span><span class=lnt>127
+</span><span class=lnt>128
+</span><span class=lnt>129
+</span><span class=lnt>130
+</span><span class=lnt>131
+</span><span class=lnt>132
+</span><span class=lnt>133
+</span><span class=lnt>134
+</span><span class=lnt>135
+</span><span class=lnt>136
+</span><span class=lnt>137
+</span><span class=lnt>138
+</span><span class=lnt>139
+</span><span class=lnt>140
+</span><span class=lnt>141
+</span><span class=lnt>142
+</span><span class=lnt>143
+</span><span class=lnt>144
+</span><span class=lnt>145
+</span><span class=lnt>146
+</span><span class=lnt>147
+</span><span class=lnt>148
+</span><span class=lnt>149
+</span><span class=lnt>150
+</span><span class=lnt>151
+</span><span class=lnt>152
+</span><span class=lnt>153
+</span><span class=lnt>154
+</span><span class=lnt>155
+</span><span class=lnt>156
+</span><span class=lnt>157
+</span><span class=lnt>158
+</span><span class=lnt>159
+</span><span class=lnt>160
+</span><span class=lnt>161
+</span><span class=lnt>162
+</span><span class=lnt>163
+</span><span class=lnt>164
+</span><span class=lnt>165
+</span><span class=lnt>166
+</span><span class=lnt>167
+</span><span class=lnt>168
+</span><span class=lnt>169
+</span><span class=lnt>170
+</span><span class=lnt>171
+</span><span class=lnt>172
+</span><span class=lnt>173
+</span><span class=lnt>174
+</span><span class=lnt>175
+</span><span class=lnt>176
+</span><span class=lnt>177
+</span><span class=lnt>178
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>div</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;movie-list-4&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;list&#34;</span> <span class=na>style</span><span class=o>=</span><span class=s>&#34;margin:0px; clear:left;&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;list-view-headline&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>       <span class=p>&lt;</span><span class=nt>a</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;edit-button&#34;</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#&#34;</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;link-sort-movie-4&#34;</span> <span class=na>onclick</span><span class=o>=</span><span class=s>&#34;new Ajax.Request(&#39;/en/de/movie/67669/activate_cast_sorting?type=movie-4&#39;, {asynchronous:true, evalScripts:true}); return false;&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;Sort this list&#34;</span><span class=p>&gt;</span>sort<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>       <span class=p>&lt;</span><span class=nt>a</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;edit-button&#34;</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#&#34;</span> <span class=na>onclick</span><span class=o>=</span><span class=s>&#34;try { box = new lightbox(&#39;/en/de/cast/edit?department=4&amp;amp;movie=67669-how-to-train-your-dragon-the-hidden-world&#39;, false, true) } catch (e) {}; return false;&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;edit&#34;</span><span class=p>&gt;</span>edit<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>       <span class=p>&lt;</span><span class=nt>a</span> <span class=na>name</span><span class=o>=</span><span class=s>&#34;department_4&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>       <span class=p>&lt;</span><span class=nt>h3</span><span class=p>&gt;</span>Actors<span class=p>&lt;/</span><span class=nt>h3</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>ul</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;movie-4&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;sortable-list&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>       <span class=p>&lt;</span><span class=nt>li</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;actor_885986&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;freeze handle&#34;</span><span class=p>&gt;&lt;</span><span class=nt>img</span> <span class=na>alt</span><span class=o>=</span><span class=s>&#34;Sort&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;sort&#34;</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;https://www.omdb.org/images/icons/sort.png?1319773240&#34;</span> <span class=na>width</span><span class=o>=</span><span class=s>&#34;25&#34;</span> <span class=na>height</span><span class=o>=</span><span class=s>&#34;11&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;person&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>             <span class=p>&lt;</span><span class=nt>strong</span><span class=p>&gt;&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;/en/de/person/449-jay-baruchel&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;Person: Jay Baruchel&#34;</span><span class=p>&gt;</span>Jay Baruchel<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;&lt;/</span><span class=nt>strong</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          as
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>span</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;bold&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>a</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;edit&#34;</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#&#34;</span> <span class=na>onclick</span><span class=o>=</span><span class=s>&#34;try { box = new lightbox(&#39;/en/de/cast/885986/edit_character&#39;, false, true) } catch (e) {}; return false;&#34;</span><span class=p>&gt;</span>Hiccup<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          (Voice)
+</span></span><span class=line><span class=cl>          <span class=p>&lt;/</span><span class=nt>span</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>       <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>       <span class=p>&lt;</span><span class=nt>li</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;actor_885987&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;freeze handle&#34;</span><span class=p>&gt;&lt;</span><span class=nt>img</span> <span class=na>alt</span><span class=o>=</span><span class=s>&#34;Sort&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;sort&#34;</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;https://www.omdb.org/images/icons/sort.png?1319773240&#34;</span> <span class=na>width</span><span class=o>=</span><span class=s>&#34;25&#34;</span> <span class=na>height</span><span class=o>=</span><span class=s>&#34;11&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;person&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>             <span class=p>&lt;</span><span class=nt>strong</span><span class=p>&gt;&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;/en/de/person/59174-america-ferrera&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;Person: America Ferrera&#34;</span><span class=p>&gt;</span>America Ferrera<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;&lt;/</span><span class=nt>strong</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          as
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>span</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;bold&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>a</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;edit&#34;</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#&#34;</span> <span class=na>onclick</span><span class=o>=</span><span class=s>&#34;try { box = new lightbox(&#39;/en/de/cast/885987/edit_character&#39;, false, true) } catch (e) {}; return false;&#34;</span><span class=p>&gt;</span>Astrid<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          (Voice)
+</span></span><span class=line><span class=cl>          <span class=p>&lt;/</span><span class=nt>span</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>       <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>       <span class=p>&lt;</span><span class=nt>li</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;actor_967703&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;freeze handle&#34;</span><span class=p>&gt;&lt;</span><span class=nt>img</span> <span class=na>alt</span><span class=o>=</span><span class=s>&#34;Sort&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;sort&#34;</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;https://www.omdb.org/images/icons/sort.png?1319773240&#34;</span> <span class=na>width</span><span class=o>=</span><span class=s>&#34;25&#34;</span> <span class=na>height</span><span class=o>=</span><span class=s>&#34;11&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;person&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>             <span class=p>&lt;</span><span class=nt>strong</span><span class=p>&gt;&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;/en/de/person/1164-f-murray-abraham&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;Person: F. Murray Abraham&#34;</span><span class=p>&gt;</span>F. Murray Abraham<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;&lt;/</span><span class=nt>strong</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          as
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>span</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;bold&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>a</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;edit&#34;</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#&#34;</span> <span class=na>onclick</span><span class=o>=</span><span class=s>&#34;try { box = new lightbox(&#39;/en/de/cast/967703/edit_character&#39;, false, true) } catch (e) {}; return false;&#34;</span><span class=p>&gt;</span>Grimmel<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          (Voice)
+</span></span><span class=line><span class=cl>          <span class=p>&lt;/</span><span class=nt>span</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>       <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>       <span class=p>&lt;</span><span class=nt>li</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;actor_885988&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;freeze handle&#34;</span><span class=p>&gt;&lt;</span><span class=nt>img</span> <span class=na>alt</span><span class=o>=</span><span class=s>&#34;Sort&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;sort&#34;</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;https://www.omdb.org/images/icons/sort.png?1319773240&#34;</span> <span class=na>width</span><span class=o>=</span><span class=s>&#34;25&#34;</span> <span class=na>height</span><span class=o>=</span><span class=s>&#34;11&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;person&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>             <span class=p>&lt;</span><span class=nt>strong</span><span class=p>&gt;&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;/en/de/person/112-cate-blanchett&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;Person: Cate Blanchett&#34;</span><span class=p>&gt;</span>Cate Blanchett<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;&lt;/</span><span class=nt>strong</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          as
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>a</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;edit&#34;</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#&#34;</span> <span class=na>onclick</span><span class=o>=</span><span class=s>&#34;try { box = new lightbox(&#39;/en/de/cast/885988/edit_character&#39;, false, true) } catch (e) {}; return false;&#34;</span><span class=p>&gt;</span>Valka<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          (Voice)
+</span></span><span class=line><span class=cl>       <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>       <span class=p>&lt;</span><span class=nt>li</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;actor_885992&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;freeze handle&#34;</span><span class=p>&gt;&lt;</span><span class=nt>img</span> <span class=na>alt</span><span class=o>=</span><span class=s>&#34;Sort&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;sort&#34;</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;https://www.omdb.org/images/icons/sort.png?1319773240&#34;</span> <span class=na>width</span><span class=o>=</span><span class=s>&#34;25&#34;</span> <span class=na>height</span><span class=o>=</span><span class=s>&#34;11&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;person&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>             <span class=p>&lt;</span><span class=nt>strong</span><span class=p>&gt;&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;/en/de/person/17276-gerard-butler&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;Person: Gerard Butler&#34;</span><span class=p>&gt;</span>Gerard Butler<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;&lt;/</span><span class=nt>strong</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          as
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>a</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;edit&#34;</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#&#34;</span> <span class=na>onclick</span><span class=o>=</span><span class=s>&#34;try { box = new lightbox(&#39;/en/de/cast/885992/edit_character&#39;, false, true) } catch (e) {}; return false;&#34;</span><span class=p>&gt;</span>Stoick<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          (Voice)
+</span></span><span class=line><span class=cl>       <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>       <span class=p>&lt;</span><span class=nt>li</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;actor_885989&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;freeze handle&#34;</span><span class=p>&gt;&lt;</span><span class=nt>img</span> <span class=na>alt</span><span class=o>=</span><span class=s>&#34;Sort&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;sort&#34;</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;https://www.omdb.org/images/icons/sort.png?1319773240&#34;</span> <span class=na>width</span><span class=o>=</span><span class=s>&#34;25&#34;</span> <span class=na>height</span><span class=o>=</span><span class=s>&#34;11&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;person&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>             <span class=p>&lt;</span><span class=nt>strong</span><span class=p>&gt;&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;/en/de/person/24264-craig-ferguson&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;Person: Craig Ferguson&#34;</span><span class=p>&gt;</span>Craig Ferguson<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;&lt;/</span><span class=nt>strong</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          as
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>a</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;edit&#34;</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#&#34;</span> <span class=na>onclick</span><span class=o>=</span><span class=s>&#34;try { box = new lightbox(&#39;/en/de/cast/885989/edit_character&#39;, false, true) } catch (e) {}; return false;&#34;</span><span class=p>&gt;</span>Gobber<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          (Voice)
+</span></span><span class=line><span class=cl>       <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>       <span class=p>&lt;</span><span class=nt>li</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;actor_885990&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;freeze handle&#34;</span><span class=p>&gt;&lt;</span><span class=nt>img</span> <span class=na>alt</span><span class=o>=</span><span class=s>&#34;Sort&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;sort&#34;</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;https://www.omdb.org/images/icons/sort.png?1319773240&#34;</span> <span class=na>width</span><span class=o>=</span><span class=s>&#34;25&#34;</span> <span class=na>height</span><span class=o>=</span><span class=s>&#34;11&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;person&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>             <span class=p>&lt;</span><span class=nt>strong</span><span class=p>&gt;&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;/en/de/person/21007-jonah-hill&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;Person: Jonah Hill&#34;</span><span class=p>&gt;</span>Jonah Hill<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;&lt;/</span><span class=nt>strong</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          as
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>a</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;edit&#34;</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#&#34;</span> <span class=na>onclick</span><span class=o>=</span><span class=s>&#34;try { box = new lightbox(&#39;/en/de/cast/885990/edit_character&#39;, false, true) } catch (e) {}; return false;&#34;</span><span class=p>&gt;</span>Snotlout Jorgenson<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          (Voice)
+</span></span><span class=line><span class=cl>       <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>       <span class=p>&lt;</span><span class=nt>li</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;actor_967704&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;freeze handle&#34;</span><span class=p>&gt;&lt;</span><span class=nt>img</span> <span class=na>alt</span><span class=o>=</span><span class=s>&#34;Sort&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;sort&#34;</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;https://www.omdb.org/images/icons/sort.png?1319773240&#34;</span> <span class=na>width</span><span class=o>=</span><span class=s>&#34;25&#34;</span> <span class=na>height</span><span class=o>=</span><span class=s>&#34;11&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;person&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>             <span class=p>&lt;</span><span class=nt>strong</span><span class=p>&gt;&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;/en/de/person/54691-christopher-mintz-plasse&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;Person: Christopher Mintz-Plasse&#34;</span><span class=p>&gt;</span>Christopher Mintz-Plasse<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;&lt;/</span><span class=nt>strong</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          as
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>a</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;edit&#34;</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#&#34;</span> <span class=na>onclick</span><span class=o>=</span><span class=s>&#34;try { box = new lightbox(&#39;/en/de/cast/967704/edit_character&#39;, false, true) } catch (e) {}; return false;&#34;</span><span class=p>&gt;</span>Fishlegs<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          (Voice)
+</span></span><span class=line><span class=cl>       <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>       <span class=p>&lt;</span><span class=nt>li</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;actor_967705&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;freeze handle&#34;</span><span class=p>&gt;&lt;</span><span class=nt>img</span> <span class=na>alt</span><span class=o>=</span><span class=s>&#34;Sort&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;sort&#34;</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;https://www.omdb.org/images/icons/sort.png?1319773240&#34;</span> <span class=na>width</span><span class=o>=</span><span class=s>&#34;25&#34;</span> <span class=na>height</span><span class=o>=</span><span class=s>&#34;11&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;person&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>             <span class=p>&lt;</span><span class=nt>strong</span><span class=p>&gt;&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;/en/de/person/41091-kristen-wiig&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;Person: Kristen Wiig&#34;</span><span class=p>&gt;</span>Kristen Wiig<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;&lt;/</span><span class=nt>strong</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          as
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>a</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;edit&#34;</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#&#34;</span> <span class=na>onclick</span><span class=o>=</span><span class=s>&#34;try { box = new lightbox(&#39;/en/de/cast/967705/edit_character&#39;, false, true) } catch (e) {}; return false;&#34;</span><span class=p>&gt;</span>Ruffnut<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          (Voice)
+</span></span><span class=line><span class=cl>       <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>       <span class=p>&lt;</span><span class=nt>li</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;actor_885991&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;freeze handle&#34;</span><span class=p>&gt;&lt;</span><span class=nt>img</span> <span class=na>alt</span><span class=o>=</span><span class=s>&#34;Sort&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;sort&#34;</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;https://www.omdb.org/images/icons/sort.png?1319773240&#34;</span> <span class=na>width</span><span class=o>=</span><span class=s>&#34;25&#34;</span> <span class=na>height</span><span class=o>=</span><span class=s>&#34;11&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;person&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>             <span class=p>&lt;</span><span class=nt>strong</span><span class=p>&gt;&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;/en/de/person/157561-kit-harington&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;Person: Kit Harington&#34;</span><span class=p>&gt;</span>Kit Harington<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;&lt;/</span><span class=nt>strong</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          as
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>a</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;edit&#34;</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#&#34;</span> <span class=na>onclick</span><span class=o>=</span><span class=s>&#34;try { box = new lightbox(&#39;/en/de/cast/885991/edit_character&#39;, false, true) } catch (e) {}; return false;&#34;</span><span class=p>&gt;</span>Eret<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          (Voice)
+</span></span><span class=line><span class=cl>       <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>       <span class=p>&lt;</span><span class=nt>li</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;actor_967706&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;freeze handle&#34;</span><span class=p>&gt;&lt;</span><span class=nt>img</span> <span class=na>alt</span><span class=o>=</span><span class=s>&#34;Sort&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;sort&#34;</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;https://www.omdb.org/images/icons/sort.png?1319773240&#34;</span> <span class=na>width</span><span class=o>=</span><span class=s>&#34;25&#34;</span> <span class=na>height</span><span class=o>=</span><span class=s>&#34;11&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;person&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>             <span class=p>&lt;</span><span class=nt>strong</span><span class=p>&gt;&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;/en/de/person/224617-robin-atkin-downes&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;Person: Robin Atkin Downes&#34;</span><span class=p>&gt;</span>Robin Atkin Downes<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;&lt;/</span><span class=nt>strong</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          as
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>a</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;edit&#34;</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#&#34;</span> <span class=na>onclick</span><span class=o>=</span><span class=s>&#34;try { box = new lightbox(&#39;/en/de/cast/967706/edit_character&#39;, false, true) } catch (e) {}; return false;&#34;</span><span class=p>&gt;</span>Ack<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          (Voice)
+</span></span><span class=line><span class=cl>       <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>       <span class=p>&lt;</span><span class=nt>li</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;actor_967707&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;freeze handle&#34;</span><span class=p>&gt;&lt;</span><span class=nt>img</span> <span class=na>alt</span><span class=o>=</span><span class=s>&#34;Sort&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;sort&#34;</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;https://www.omdb.org/images/icons/sort.png?1319773240&#34;</span> <span class=na>width</span><span class=o>=</span><span class=s>&#34;25&#34;</span> <span class=na>height</span><span class=o>=</span><span class=s>&#34;11&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;person&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>             <span class=p>&lt;</span><span class=nt>strong</span><span class=p>&gt;&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;/en/de/person/182547-kieron-elliott&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;Person: Kieron Elliott&#34;</span><span class=p>&gt;</span>Kieron Elliott<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;&lt;/</span><span class=nt>strong</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          as
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>a</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;edit&#34;</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#&#34;</span> <span class=na>onclick</span><span class=o>=</span><span class=s>&#34;try { box = new lightbox(&#39;/en/de/cast/967707/edit_character&#39;, false, true) } catch (e) {}; return false;&#34;</span><span class=p>&gt;</span>Hoark<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          (Voice)
+</span></span><span class=line><span class=cl>       <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>       <span class=p>&lt;</span><span class=nt>li</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;actor_967708&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;freeze handle&#34;</span><span class=p>&gt;&lt;</span><span class=nt>img</span> <span class=na>alt</span><span class=o>=</span><span class=s>&#34;Sort&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;sort&#34;</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;https://www.omdb.org/images/icons/sort.png?1319773240&#34;</span> <span class=na>width</span><span class=o>=</span><span class=s>&#34;25&#34;</span> <span class=na>height</span><span class=o>=</span><span class=s>&#34;11&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;person&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>             <span class=p>&lt;</span><span class=nt>strong</span><span class=p>&gt;&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;/en/de/person/224928-julia-emelin&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;Person: Julia Emelin&#34;</span><span class=p>&gt;</span>Julia Emelin<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;&lt;/</span><span class=nt>strong</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          as
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>a</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;edit&#34;</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#&#34;</span> <span class=na>onclick</span><span class=o>=</span><span class=s>&#34;try { box = new lightbox(&#39;/en/de/cast/967708/edit_character&#39;, false, true) } catch (e) {}; return false;&#34;</span><span class=p>&gt;</span>Griselda the Grevious<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          (Voice)
+</span></span><span class=line><span class=cl>       <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>       <span class=p>&lt;</span><span class=nt>li</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;actor_967709&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;freeze handle&#34;</span><span class=p>&gt;&lt;</span><span class=nt>img</span> <span class=na>alt</span><span class=o>=</span><span class=s>&#34;Sort&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;sort&#34;</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;https://www.omdb.org/images/icons/sort.png?1319773240&#34;</span> <span class=na>width</span><span class=o>=</span><span class=s>&#34;25&#34;</span> <span class=na>height</span><span class=o>=</span><span class=s>&#34;11&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;person&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>             <span class=p>&lt;</span><span class=nt>strong</span><span class=p>&gt;&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;/en/de/person/35981-gideon-emery&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;Person: Gideon Emery&#34;</span><span class=p>&gt;</span>Gideon Emery<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;&lt;/</span><span class=nt>strong</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          as
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>a</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;edit&#34;</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#&#34;</span> <span class=na>onclick</span><span class=o>=</span><span class=s>&#34;try { box = new lightbox(&#39;/en/de/cast/967709/edit_character&#39;, false, true) } catch (e) {}; return false;&#34;</span><span class=p>&gt;</span>Trapper<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          (Voice)
+</span></span><span class=line><span class=cl>       <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>       <span class=p>&lt;</span><span class=nt>li</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;actor_967710&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;freeze handle&#34;</span><span class=p>&gt;&lt;</span><span class=nt>img</span> <span class=na>alt</span><span class=o>=</span><span class=s>&#34;Sort&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;sort&#34;</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;https://www.omdb.org/images/icons/sort.png?1319773240&#34;</span> <span class=na>width</span><span class=o>=</span><span class=s>&#34;25&#34;</span> <span class=na>height</span><span class=o>=</span><span class=s>&#34;11&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;person&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>             <span class=p>&lt;</span><span class=nt>strong</span><span class=p>&gt;&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;/en/de/person/55398-ashley-jensen&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;Person: Ashley Jensen&#34;</span><span class=p>&gt;</span>Ashley Jensen<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;&lt;/</span><span class=nt>strong</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          as
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>a</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;edit&#34;</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#&#34;</span> <span class=na>onclick</span><span class=o>=</span><span class=s>&#34;try { box = new lightbox(&#39;/en/de/cast/967710/edit_character&#39;, false, true) } catch (e) {}; return false;&#34;</span><span class=p>&gt;</span>Phlegma<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          (Voice)
+</span></span><span class=line><span class=cl>       <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>       <span class=p>&lt;</span><span class=nt>li</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;actor_967711&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;freeze handle&#34;</span><span class=p>&gt;&lt;</span><span class=nt>img</span> <span class=na>alt</span><span class=o>=</span><span class=s>&#34;Sort&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;sort&#34;</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;https://www.omdb.org/images/icons/sort.png?1319773240&#34;</span> <span class=na>width</span><span class=o>=</span><span class=s>&#34;25&#34;</span> <span class=na>height</span><span class=o>=</span><span class=s>&#34;11&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;person&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>             <span class=p>&lt;</span><span class=nt>strong</span><span class=p>&gt;&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;/en/de/person/173649-olafur-darri-olafsson&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;Person: Ólafur Darri Ólafsson&#34;</span><span class=p>&gt;</span>Ólafur Darri Ólafsson<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;&lt;/</span><span class=nt>strong</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          as
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>a</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;edit&#34;</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#&#34;</span> <span class=na>onclick</span><span class=o>=</span><span class=s>&#34;try { box = new lightbox(&#39;/en/de/cast/967711/edit_character&#39;, false, true) } catch (e) {}; return false;&#34;</span><span class=p>&gt;</span>Ragnar the Rock<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          (Voice)
+</span></span><span class=line><span class=cl>       <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>       <span class=p>&lt;</span><span class=nt>li</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;actor_967713&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;freeze handle&#34;</span><span class=p>&gt;&lt;</span><span class=nt>img</span> <span class=na>alt</span><span class=o>=</span><span class=s>&#34;Sort&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;sort&#34;</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;https://www.omdb.org/images/icons/sort.png?1319773240&#34;</span> <span class=na>width</span><span class=o>=</span><span class=s>&#34;25&#34;</span> <span class=na>height</span><span class=o>=</span><span class=s>&#34;11&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;person&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>             <span class=p>&lt;</span><span class=nt>strong</span><span class=p>&gt;&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;/en/de/person/83216-james-sie&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;Person: James Sie&#34;</span><span class=p>&gt;</span>James Sie<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;&lt;/</span><span class=nt>strong</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          as
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>a</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;edit&#34;</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#&#34;</span> <span class=na>onclick</span><span class=o>=</span><span class=s>&#34;try { box = new lightbox(&#39;/en/de/cast/967713/edit_character&#39;, false, true) } catch (e) {}; return false;&#34;</span><span class=p>&gt;</span>Chaghatai Khan<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          (Voice)
+</span></span><span class=line><span class=cl>       <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>       <span class=p>&lt;</span><span class=nt>li</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;actor_967714&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;freeze handle&#34;</span><span class=p>&gt;&lt;</span><span class=nt>img</span> <span class=na>alt</span><span class=o>=</span><span class=s>&#34;Sort&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;sort&#34;</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;https://www.omdb.org/images/icons/sort.png?1319773240&#34;</span> <span class=na>width</span><span class=o>=</span><span class=s>&#34;25&#34;</span> <span class=na>height</span><span class=o>=</span><span class=s>&#34;11&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;person&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>             <span class=p>&lt;</span><span class=nt>strong</span><span class=p>&gt;&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;/en/de/person/20049-david-tennant&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;Person: David Tennant&#34;</span><span class=p>&gt;</span>David Tennant<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;&lt;/</span><span class=nt>strong</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          as
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>a</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;edit&#34;</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#&#34;</span> <span class=na>onclick</span><span class=o>=</span><span class=s>&#34;try { box = new lightbox(&#39;/en/de/cast/967714/edit_character&#39;, false, true) } catch (e) {}; return false;&#34;</span><span class=p>&gt;</span>Spitelout / Ivar the Witless<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          (Voice)
+</span></span><span class=line><span class=cl>       <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>Examining the HTML above, we can clearly see that the cast of a movie is always stored under a <code>div</code> element with the <code>id</code> attribute with the value <code>movie-list-4</code>. That is great! Inside this element, we can see that each actor&rsquo;s name and link to their page is contained inside list item elements. However, the <code>id</code> attribute for these elements is unique for each actor, which means that we&rsquo;d have to do some pattern matching if we were hellbent on using it to identify each actor. Another approach, which is the one I will take, is to notice that inside each of the aforementioned <code>div</code> elements, there is another <code>div</code> with the <code>class</code> attribute valued <code>person</code> inside which there is a single anchor element with not just the actor&rsquo;s name as data, but also the actor&rsquo;s OMDB webpage link, which we can then use to safeguard against actors with the same name.</p><h2 id=next-steps>Next steps</h2><p>Now that we have a functional description on how to scrape the data we want, we need to come with an implementation plan for how we are going to pratically achieve this goal. This will be covered in the next post of the series.</p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2023-07-14</span></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><span></span></div></div></div><div class=post-info-more><section class=post-tags></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/six_degrees_of_kevin_bacon_1/ class=prev rel=prev title="Six Degrees of Kevin Bacon 1: Introduction"><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>Six Degrees of Kevin Bacon 1: Introduction</a></div></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>Luís Franco</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/katex/katex.min.css><link rel=stylesheet href=/lib/katex/copy-tex.min.css><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/katex/katex.min.js></script><script type=text/javascript src=/lib/katex/auto-render.min.js></script><script type=text/javascript src=/lib/katex/copy-tex.min.js></script><script type=text/javascript src=/lib/katex/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:30,type:"lunr"}}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>

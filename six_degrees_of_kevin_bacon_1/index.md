@@ -1,5 +1,9 @@
-# Six Degrees of Kevin Bacon: Introduction
+# Six Degrees of Kevin Bacon 1: Introduction
 
+
+{{< admonition type=tip title="Other posts in this series" open=true >}}
+* [Six Degrees of Kevin Bacon 2: Web Scraping Movie Data](https://ornlu-is.github.io/six_degrees_of_kevin_bacon_2/)
+{{< /admonition >}}
 
 Today I found out that there is parlor game named "Six Degrees of Kevin Bacon" and its rules are very simple: a player picks an actor and other players have to connect that actor to another actor via a film both starred in. This process is then repeated until Kevin Bacon is reached. The name of this game is a reference to the concept of "six degrees of separation" where, in the world's social network, every person is, at most, six acquaintance links apart from any other person in the world.
 
@@ -9,7 +13,7 @@ So what is a network and how can we visualise it? In this context, a network is 
 
 Networks are represented as graphs, which are a set of nodes and edges. We can visualise these in the following way:
 
-{{< figure src="/images/kevin_bacon_example_graph.png" title="Kevin Bacon and his parents as a graph" >}}
+{{< figure src="/images/six_degrees_of_kevin_bacon_1/kevin_bacon_example_graph.png" title="Kevin Bacon and his parents as a graph" >}}
 
 Hopefully, the above picture made it abundantly clear what a graph, nodes and edges are. In our graph we have three nodes, $|N|=3$, Kevin Bacon and his parents, and two edges, $|E|=2$, which connect Kevin Bacon to his parents via a parental relation. Mathematically, we characterise a graph, $G$, by its set of nodes, $N$, and edges, $E$, as follows:
 
@@ -23,7 +27,7 @@ $$E = \\{ \\{ \text{Edmund Bacon} , \text{Kevin Bacon} \\}, \\{ \text{Kevin Baco
 
 Technically, the above graph should be a *directed* graph, in the sense that edges have a given direction: Edmund Bacon is Kevin Bacon's father, but Kevin Bacon is not Edmund Bacon's father, such shenanigans are left to time travel movies. However, for simplicity's sake, I decided to represent the graph as an *undirected* graph, where edges represent bidirectional relations. Additionally, it is also an *unweighted* graph, meaning that all edges have the same weight, because I am assuming Kevin Bacon loves both his parents equally. 
 
-## Degree and Distance in Networks
+## Degree and distance in networks
 
 In a network, any node, $i$, is associated with a quantity known as the degree, $k_i$, which simply represents the number of edges a node has. If we associate Kevin Bacon with $i=1$, and is mother and father with, respectively, $i=2$ and $i=3$, we have that:
 * $k_1 = 2$;
@@ -38,7 +42,7 @@ While the concept of a node's degree is very intuitive, the concept of distance 
 
 However, in most graphs, there isn't a single path that connects two nodes together. As such, it is more natural to refer to the shortest path, *i.e.*, the path that consists of the minimal set of edges. Derived from this, another interesting quantity in networks is the average path length, $\langle d \rangle$, which is simply the average of the shortest paths between all pairs of nodes.
 
-## Small World Networks
+## Small world networks
 
 In 1967, an American social psychologist named Stanley Milgram, designed an experiment to measure distances in social networks. He began by selecting a stock broker from Boston and a divinity student from Sharon (Massachussetts) as target nodes. Simultaneously, he also randomly selected residents of Wichita and Omaha, which would act as starting nodes. These residents were sent a letter by Milgram explaining the study's objective, a photograph, the name, address and some more information about their target person. These letters also included instructions for these people to forward the letter to the person they knew and thought would most likely know the target person.
 
@@ -50,13 +54,18 @@ $$\langle d \rangle \approx \frac{\ln |N|}{ \ln \langle k \rangle },$$
 
 is reasonably close. 
 
-## The Goal of this Project
+## The goal of this project
 
 I have a very straightforward goal: to verify if, and if so, how many, actors are more than six degrees apart from Kevin Bacon. This project is deceptively hard due to the data required to achieve it. The first step is to scrape movie data off the Internet (without DDoS'ing anyone) and store it efficiently. Then, this data has to be cleaned to avoid having any malformed data, *e.g.*, duplicated entries, skewing the results. Finally, the entire graph has to be computed and the distance to Kevin Bacon must be calculated for every single node. Additionally, I also want to verify if the small world property holds true for the movie actors network and, in case it does not, when, in time, does it break down.
 
+## Next step
+
+We have a clear goal in mind, so we need to figure out where we are going to get the data from and how we are going to do it. This is covered in the next post of the series:
+* [Six Degrees of Kevin Bacon 2: Web Scraping Movie Data](https://ornlu-is.github.io/six_degrees_of_kevin_bacon_2/)
+
 ## Trivia
 
-Stanley Milgram is mostly known for authoring another *very* controversial experiment, which is known as the Stanley Milgram Shock Experiment.
+Stanley Milgram is mostly known for authoring another *very* controversial experiment, which is known as the *Stanley Milgram Shock Experiment*.
 
 ## References
 
