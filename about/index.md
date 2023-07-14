@@ -1,11 +1,11 @@
 # About
 
 
-Hi, I'm Luís!
+Hi, I'm Luís! This is where I write about projects I've been working on, and also where I post some of my study notes, to keep everything organized and easily shareable.
 
 ## Work
 
-I currently work as a Systems Engineer for Cloudflare.
+I currently work as a Systems Engineer for Cloudflare and previously I worked for freiheit.com technologies as a Software Engineer.
 
 ## Academic studies
 
