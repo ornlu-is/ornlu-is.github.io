@@ -3,7 +3,7 @@ title: "Adventures in Overengineering 2: a better Docker image"
 date: 2023-03-21T20:25:26Z
 categories: ["Adventures in Overengineering"]
 description: "Deploying a slim Docker image into a microk8s kubernetes local cluster."
-draft: false
+draft: true
 ---
 
 Last post, we managed to do the following:

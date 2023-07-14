@@ -3,7 +3,7 @@ title: "Adventures in Overengineering 3: manning the Helm"
 date: 2023-03-26T23:35:24+01:00
 categories: ["Adventures in Overengineering"]
 description: "Using helm to package kubernetes applications and deploying them on a local kubernetes microk8s cluster."
-draft: false
+draft: true
 ---
 
 Ahoy! It's time to include Helm in our project! Why? Three reasons: making our life easier when it comes to managing Kubernetes resources, staying true to the overengineering game by introducing yet another tool, and will also allow me to write more pirate related puns than what should be legally allowed. I apologize in advance for my terrible sense of humour. It is recommended to read this post while listening to "Under Jolly Roger" by Running Wild or any other pirate song.

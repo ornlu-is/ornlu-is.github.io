@@ -3,7 +3,7 @@ title: "Adventures in Overengineering 4: using Terraform for Kubernetes namespac
 date: 2023-03-29T22:57:58+01:00
 categories: ["Adventures in Overengineering"]
 description: "Using Terraform to create a Kubernetes namespace in a local microk8s cluster and migrating a Kubernetes application to it using Helm"
-draft: false
+draft: true
 ---
 
 This post has one very simple and short goal: to use Terraform to create a Kubernetes namespace to which we will migrate the application that we've been working on. Now, you might ask yourself: "Is it overkill to use Terraform just to create Kubernetes namespaces?" To which the answer is: yes, yes it is. But will that stop me? Short answer "no", long answer "no, it will not". The name of the series is "*Adventures in Overengineering*" and I plan to remain faithful to that name until I run out of ideas.

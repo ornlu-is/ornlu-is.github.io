@@ -3,7 +3,7 @@ title: "Adventures in Overengineering 1: deploying a Golang web server"
 date: 2023-03-15T20:46:20Z
 categories: ["Adventures in Overengineering"]
 description: "Creating a local kubernetes cluster with microk8s, creating a Golang web server and its Docker image and then deploying it to the microk8s kubernetes cluster."
-draft: false
+draft: true
 ---
 
 There is a wide variety of blog posts on the internet teaching one how to create a simple web server in Golang. But most of them are incredibly boring and minor variations of each other. So I'm going to take a different approach: I'm going to deploy a simple REST API in Golang. Notice that I said *deploy*, not create, which means that my first step is a tiny bit different.
