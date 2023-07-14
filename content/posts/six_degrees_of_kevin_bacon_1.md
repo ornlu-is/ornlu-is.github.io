@@ -51,7 +51,7 @@ While many of the letters did not make it back, those that did led allowed Milgr
 
 In network terms, this just means that the average distance between two nodes in a network is short. More precisely, it is short enough that the approximation:
 
-$$\langle d \rangle \approx \frac{\ln N}{ \ln \langle k \rangle },$$
+$$\langle d \rangle \approx \frac{\ln |N|}{ \ln \langle k \rangle },$$
 
 is reasonably close. 
 
