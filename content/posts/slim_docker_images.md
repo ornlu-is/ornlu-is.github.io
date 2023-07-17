@@ -111,4 +111,8 @@ Which means that our new image is only 81.3Mb in size, 10 times less than what t
 docker run -d -p 88:8090 slim-shady
 ```
 
-Navigating to `http://localhost:8080/` in a browser shows that this is working as expected. 
+Navigating to `http://localhost:8080/` in a browser shows that this is working as expected.
+
+{{< admonition type=tip title="Link to the code" open=true >}}
+https://github.com/ornlu-is/slim-docker-image-example
+{{< /admonition >}}
