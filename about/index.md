@@ -13,7 +13,7 @@ I have a BSc in Engineering Physics and a MSc in Applied Mathematics, both grant
 
 ## Work-related interests
 
-My main interests are backend engineering, infrastructure, statistical algorithms for problems at scale, and cryptography.
+My main interests are backend engineering, infrastructure, and statistical algorithms for problems at scale.
 
 ## Socials
 

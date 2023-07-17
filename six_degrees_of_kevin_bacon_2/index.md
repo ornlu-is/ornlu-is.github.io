@@ -1,11 +1,12 @@
 # Six Degrees of Kevin Bacon 2: Web Scraping Movie Data
 
 
+To achieve the goal of building a social graph for movie actors, the first step is to gather data. For that matter, I will be scraping data from the [Open Media Database (OMDB)](https://www.omdb.org), which is a free non-commercial database for film media.
+
 {{< admonition type=tip title="Other posts in this series" open=true >}}
 * [Six Degrees of Kevin Bacon 1: Introduction](https://ornlu-is.github.io/six_degrees_of_kevin_bacon_1/)
+* [Six Degrees of Kevin Bacon 3: Collecting the Data](https://ornlu-is.github.io/six_degrees_of_kevin_bacon_3/)
 {{< /admonition >}}
-
-To achieve the goal of building a social graph for movie actors, the first step is to gather data. For that matter, I will be scraping data from the [Open Media Database (OMDB)](https://www.omdb.org), which is a free non-commercial database for film media.
 
 ## A plan for crawling OMDB
 
@@ -306,9 +307,11 @@ and is filled with information on who worked on the movie. Particularly, there i
 </div>
 ```
 
-Examining the HTML above, we can clearly see that the cast of a movie is always stored under a `div` element with the `id` attribute with the value `movie-list-4`. That is great! Inside this element, we can see that each actor's name and link to their page is contained inside list item elements. However, the `id` attribute for these elements is unique for each actor, which means that we'd have to do some pattern matching if we were hellbent on using it to identify each actor. Another approach, which is the one I will take, is to notice that inside each of the aforementioned `div` elements, there is another `div` with the `class` attribute valued `person` inside which there is a single anchor element with not just the actor's name as data, but also the actor's OMDB webpage link, which we can then use to safeguard against actors with the same name.
+Examining the HTML above, we can clearly see that the cast of a movie is always stored under a `div` element with the `id` attribute with the value `movie-list-4`. That is great! Inside this element, we can see that each actor's name and link to their page is contained inside list item elements. However, the `id` attribute for these elements isn't unique for each actor, which means that we'd have to do some pattern matching if we were hellbent on using it to identify each actor. Another approach, which is the one I will take, is to notice that inside each of the aforementioned `div` elements, there is another `div` with the `class` attribute valued `person` inside which there is a single anchor element with not just the actor's name as data, but also the actor's OMDB webpage link, which we can then use to safeguard against actors with the same name.
 
-## Next steps
+## Next step
 
-Now that we have a functional description on how to scrape the data we want, we need to come with an implementation plan for how we are going to pratically achieve this goal. This will be covered in the next post of the series.
+Now that we have a functional description on how to scrape the data we want, we need to come with an implementation plan for how we are going to pratically achieve this goal. Check out my plan for it in the next post of this series:
+
+* [Six Degrees of Kevin Bacon 3: Collecting the Data](https://ornlu-is.github.io/six_degrees_of_kevin_bacon_3/)
 

@@ -1,11 +1,12 @@
 # Six Degrees of Kevin Bacon 1: Introduction
 
 
+Today I found out that there is parlor game named "Six Degrees of Kevin Bacon" and its rules are very simple: a player picks an actor and other players have to connect that actor to another actor via a film both starred in. This process is then repeated until Kevin Bacon is reached. The name of this game is a reference to the concept of "six degrees of separation" where, in the world's social network, every person is, at most, six acquaintance links apart from any other person in the world.
+
 {{< admonition type=tip title="Other posts in this series" open=true >}}
 * [Six Degrees of Kevin Bacon 2: Web Scraping Movie Data](https://ornlu-is.github.io/six_degrees_of_kevin_bacon_2/)
+* [Six Degrees of Kevin Bacon 3: Collecting the Data](https://ornlu-is.github.io/six_degrees_of_kevin_bacon_3/)
 {{< /admonition >}}
-
-Today I found out that there is parlor game named "Six Degrees of Kevin Bacon" and its rules are very simple: a player picks an actor and other players have to connect that actor to another actor via a film both starred in. This process is then repeated until Kevin Bacon is reached. The name of this game is a reference to the concept of "six degrees of separation" where, in the world's social network, every person is, at most, six acquaintance links apart from any other person in the world.
 
 ## Networks
 
