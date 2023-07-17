@@ -97,7 +97,13 @@ COPY --from=builder /repo/bin/example /usr/bin/example
 ENTRYPOINT ./usr/bin/example
 ```
 
-Note that we gave the alias `builder` to our first container by specifying `AS builder` and then injected the binary built inside it into the slimmed docker image with `COPY --from=builder`. Running `docker images` now gives us:
+Note that we gave the alias `builder` to our first container by specifying `AS builder` and then injected the binary built inside it into the slimmed docker image with `COPY --from=builder`. As before, we can build the image with:
+
+```bash
+docker build . -f Dockerfile.buildstep -t 'slim-shady'
+```
+
+Running `docker images` now gives us:
 
 ```
 REPOSITORY          TAG       IMAGE ID       CREATED          SIZE
