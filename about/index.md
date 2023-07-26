@@ -5,7 +5,7 @@ Hi, I'm Luís! This is where I write about projects I've been working on, and al
 
 ## Work
 
-I currently work as a Systems Engineer for Cloudflare and previously I worked for freiheit.com technologies as a Software Engineer.
+I currently work as a Systems Engineer for **Cloudflare** and previously I worked for **freiheit.com technologies** as a Software Engineer.
 
 ## Academic studies
 
