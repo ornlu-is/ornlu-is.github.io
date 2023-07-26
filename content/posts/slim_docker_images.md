@@ -1,7 +1,7 @@
 ---
 title: "Slim Docker Images via Build-step Containers"
 date: 2023-07-15T17:48:07+01:00
-categories: ["Study Notes"]
+categories: ["Docker"]
 description: "How to get slim Docker images using build-step containers."
 draft: false
 ---

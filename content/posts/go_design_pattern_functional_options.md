@@ -1,7 +1,7 @@
 ---
 title: "Go Design Patterns: Functional Options"
 date: 2023-07-20T22:19:24+01:00
-categories: ["Study Notes"]
+categories: ["Golang"]
 description: "How to implement the functional options design pattern in Golang"
 draft: false
 ---
