@@ -66,6 +66,6 @@ You might, obviously, not want to take the same approach to fix this as I did, a
 
 ## References
 
-* Postgres documentation on network address types: https://www.postgresql.org/docs/current/datatype-net-types.html
-* Golang `net` package documentation: https://pkg.go.dev/net
+* Postgres documentation on network address types - https://www.postgresql.org/docs/current/datatype-net-types.html
+* Golang `net` package documentation - https://pkg.go.dev/net
 
