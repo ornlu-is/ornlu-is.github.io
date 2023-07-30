@@ -3,7 +3,7 @@ title: "Six Degrees of Kevin Bacon 1: Introduction"
 date: 2023-07-13T23:47:08+01:00
 categories: ["Six Degrees of Kevin Bacon"]
 description: "From Stanley Milgram's small world experiment to six degrees of Kevin Bacon."
-draft: false
+draft: true
 ---
 
 Today I found out that there is parlor game named "Six Degrees of Kevin Bacon" and its rules are very simple: a player picks an actor and other players have to connect that actor to another actor via a film both starred in. This process is then repeated until Kevin Bacon is reached. The name of this game is a reference to the concept of "six degrees of separation" where, in the world's social network, every person is, at most, six acquaintance links apart from any other person in the world.

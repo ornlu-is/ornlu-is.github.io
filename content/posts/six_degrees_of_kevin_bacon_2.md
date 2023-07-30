@@ -3,7 +3,7 @@ title: "Six Degrees of Kevin Bacon 2: Web Scraping Movie Data"
 date: 2023-07-14T12:17:55+01:00
 categories: ["Six Degrees of Kevin Bacon"]
 description: "Web scraping movie and actor information to build a graph of all actors, connecting them via movies they worked together on."
-draft: false
+draft: true
 ---
 
 To achieve the goal of building a social graph for movie actors, the first step is to gather data. For that matter, I will be scraping data from the [Open Media Database (OMDB)](https://www.omdb.org), which is a free non-commercial database for film media.
