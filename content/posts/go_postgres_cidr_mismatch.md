@@ -2,6 +2,7 @@
 title: "CIDRs and how they are handled by different systems"
 date: 2023-07-30T16:37:43+01:00
 categories: ["Interesting Bugs"]
+description: "CIDR handling in Go and Postgres do not match and that might cause bugs"
 draft: false
 ---
 
