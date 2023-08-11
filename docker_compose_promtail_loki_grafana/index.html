@@ -1,0 +1,299 @@
+<!doctype html><html lang=en><head><script async src="https://www.googletagmanager.com/gtag/js?id=G-G300HG9GRT"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-G300HG9GRT")</script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>Hooking Promtail, Loki, and Grafana to your Docker Compose stack - Luís Franco</title><meta name=Description content="How to add Loki, promtail, and Grafana to a local docker compose stack"><meta property="og:title" content="Hooking Promtail, Loki, and Grafana to your Docker Compose stack"><meta property="og:description" content="How to add Loki, promtail, and Grafana to a local docker compose stack"><meta property="og:type" content="article"><meta property="og:url" content="https://ornlu-is.github.io/docker_compose_promtail_loki_grafana/"><meta property="og:image" content="https://ornlu-is.github.io/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2023-08-11T11:46:41+01:00"><meta property="article:modified_time" content="2023-08-11T15:41:23+01:00"><meta property="og:site_name" content="Super website"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://ornlu-is.github.io/logo.png"><meta name=twitter:title content="Hooking Promtail, Loki, and Grafana to your Docker Compose stack"><meta name=twitter:description content="How to add Loki, promtail, and Grafana to a local docker compose stack"><meta name=application-name content="My cool site"><meta name=apple-mobile-web-app-title content="My cool site"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://ornlu-is.github.io/docker_compose_promtail_loki_grafana/><link rel=prev href=https://ornlu-is.github.io/clickhouse_docker_precreated_tables/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Hooking Promtail, Loki, and Grafana to your Docker Compose stack","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/ornlu-is.github.io\/docker_compose_promtail_loki_grafana\/"},"genre":"posts","wordcount":1494,"url":"https:\/\/ornlu-is.github.io\/docker_compose_promtail_loki_grafana\/","datePublished":"2023-08-11T11:46:41+01:00","dateModified":"2023-08-11T15:41:23+01:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Luís Franco"},"description":"How to add Loki, promtail, and Grafana to a local docker compose stack"}</script></head><body data-header-desktop=auto data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"dark"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"dark"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Luís Franco">Luís Franco</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>Posts </a><a class=menu-item href=/categories/>Categories </a><a class=menu-item href=/about/>About </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder="Search titles or contents..." id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></span></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Luís Franco">Luís Franco</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder="Search titles or contents..." id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Cancel</a></div><a class=menu-item href=/posts/ title>Posts</a><a class=menu-item href=/categories/ title>Categories</a><a class=menu-item href=/about/ title>About</a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Hooking Promtail, Loki, and Grafana to your Docker Compose stack</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Luís Franco</a>
+</span>&nbsp;<span class=post-category>included in <a href=/categories/docker/><i class="far fa-folder fa-fw" aria-hidden=true></i>Docker</a>&nbsp;<a href=/categories/grafana/><i class="far fa-folder fa-fw" aria-hidden=true></i>Grafana</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2023-08-11>2023-08-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;1494 words&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;8 minutes&nbsp;</div></div><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#the-issue-with-inspecting-docker-compose-log-messages>The issue with inspecting Docker Compose log messages</a></li><li><a href=#your-favourite-super-hero-to-the-rescue-loki-and-his-sidekick-promtail>Your favourite super hero to the rescue: Loki and his sidekick Promtail</a></li><li><a href=#the-application-we-are-monitoring>The application we are monitoring</a></li><li><a href=#setting-up-the-log-monitoring-stack-with-docker-compose>Setting up the log monitoring stack with Docker Compose</a></li><li><a href=#pre-built-dashboards-in-a-docker-compose-grafana-instance>Pre-built dashboards in a Docker Compose Grafana instance</a></li><li><a href=#dealing-with-the-unauthorized-error-from-the-grafana-dashboard>Dealing with the &lsquo;Unauthorized&rsquo; error from the Grafana dashboard</a></li><li><a href=#solving-the-too-many-outstanding-requests-error>Solving the &rsquo;too many outstanding requests&rsquo; error</a></li></ul></nav></div></div><div class=content id=content><p>When testing software locally, one of the main tools at a software engineer&rsquo;s disposal is Docker, more particularly, the Docker Compose tool. This tool allows engineers to define and run a multi-container setup using YAML files. The vast majority of software produces a form of output known as logs, which provide information on what is happening in a running application, such as errors, possible warnings, general information, and more.</p><h2 id=the-issue-with-inspecting-docker-compose-log-messages>The issue with inspecting Docker Compose log messages</h2><p>When you run a Docker Compose setup locally, you&rsquo;ll usually see all container logs being printed in rapid succession in your terminal, and, depending on the amount of logs your multi-container stack produces, this might be very difficult to navigate, reason about, and correlate log messages from different containers. Moreover, if you are interested in a single container&rsquo;s logs, you&rsquo;d have to get the container ID from the output of <code>docker ps</code> and then get the logs with <code>docker logs &lt;CONTAINER ID></code>. And even then, you&rsquo;d only see them in plaintext format printed on the terminal, which is a poor way of navigating logs if there are many of them. Surely there must be a better way.</p><h2 id=your-favourite-super-hero-to-the-rescue-loki-and-his-sidekick-promtail>Your favourite super hero to the rescue: Loki and his sidekick Promtail</h2><p>Loki is a log aggregation system designed by Grafana Labs and, most of all, it&rsquo;s open source software, which is important because I don&rsquo;t like paying for stuff that I can get for free. To add Loki to a Docker Compose stack, we have to first understand how it works. In itself, Loki is just an aggregation and storage system, it does not collect the logs by itself, nor does it provide a nice user interface to explore them. This means that we need to other components: one for collecting the logs, and another to query and visualise them.</p><p>To collect the logs, we&rsquo;ll use a piece of software called Promtail, which is an agent that takes local logs and sends them to a Loki instance. Additionally, it also handles target discovery and attaching labels to log streams. Finally, to query and visualise the logs, we&rsquo;ll simply use a Grafana instance where we&rsquo;ll use our Loki instance as a data source.</p><h2 id=the-application-we-are-monitoring>The application we are monitoring</h2><p>Since this is just an example to showcase how to set up this particular monitoring stack, I created the most basic application I could think of. All it does is start and print a Monty Python quote every second:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span> <span class=nx>main</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;log&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;time&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>for</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>log</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Oh! Now we see the violence inherent in the system! Help, help, I&#39;m being repressed!&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>1</span> <span class=o>*</span> <span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><div class="details admonition tip open"><div class="details-summary admonition-title"><i class="icon fas fa-lightbulb fa-fw" aria-hidden=true></i>Containerising the application<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><p>To run this application with Docker Compose, it has to be containerised. For this, I used a build-step container and you can read more about this on a previous post that I wrote:</p><ul><li><a href=https://ornlu-is.github.io/slim_docker_images/ target=_blank rel="noopener noreffer">https://ornlu-is.github.io/slim_docker_images/</a></li></ul></div></div></div><h2 id=setting-up-the-log-monitoring-stack-with-docker-compose>Setting up the log monitoring stack with Docker Compose</h2><p>There are several steps to this process. The first one is to create a <code>docker-compose.yaml</code> file with the following contents:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>version</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;3.8&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>services</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>loki</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>container_name</span><span class=p>:</span><span class=w> </span><span class=l>loki</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>hostname</span><span class=p>:</span><span class=w> </span><span class=l>loki</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>grafana/loki</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>ports</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>3100</span><span class=p>:</span><span class=m>3100</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>command</span><span class=p>:</span><span class=w> </span>-<span class=l>config.file=/etc/loki/local-config.yaml</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>./loki:/etc/loki/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>promtail</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>container_name</span><span class=p>:</span><span class=w> </span><span class=l>promtail</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>hostname</span><span class=p>:</span><span class=w> </span><span class=l>promtail</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>grafana/promtail</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>command</span><span class=p>:</span><span class=w> </span>-<span class=l>config.file=/etc/promtail/docker-config.yaml</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>./promtail/docker-config.yaml:/etc/promtail/docker-config.yaml</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>/var/lib/docker/containers:/var/lib/docker/containers:ro</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>/var/run/docker.sock:/var/run/docker.sock</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>depends_on</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>loki</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>grafana</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>container_name</span><span class=p>:</span><span class=w> </span><span class=l>grafana</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>hostname</span><span class=p>:</span><span class=w> </span><span class=l>grafana</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>grafana/grafana</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>environment</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>GF_AUTH_ANONYMOUS_ENABLED=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>GF_AUTH_ANONYMOUS_ORG_ROLE=Admin</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>GF_AUTH_DISABLE_LOGIN_FORM=true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>ports</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>3000</span><span class=p>:</span><span class=m>3000</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>./grafana/provisioning/:/etc/grafana/provisioning/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>depends_on</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>promtail</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>app</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>container_name</span><span class=p>:</span><span class=w> </span><span class=l>app</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>hostname</span><span class=p>:</span><span class=w> </span><span class=l>app</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>build</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>context</span><span class=p>:</span><span class=w> </span><span class=l>.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>dockerfile</span><span class=p>:</span><span class=w> </span><span class=l>Dockerfile</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>labels</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>logging</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;promtail&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>logging_jobname</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;container_logs&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>depends_on</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>grafana</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>If you didn&rsquo;t limit yourself to copying the YAML file above and actually read it, you probably have some questions. There are a bunch of bind mounts defined in our <code>docker-compose.yaml</code> file. Each of them serves a different purpose and we&rsquo;ll go through them one by one.</p><div class="details admonition tip open"><div class="details-summary admonition-title"><i class="icon fas fa-lightbulb fa-fw" aria-hidden=true></i>Bind mounts<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content>Bind mounts are basically files or directories on the host machine that are mounted into a container, meaning that the container can access these files/directories.</div></div></div><p>For Loki to know how it is configured, it needs, you&rsquo;ve guessed it, a configuration file! So we create a directory aptly named <code>loki</code>, and place a <code>local-config.yaml</code> file inside with the following configuration:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>auth_enabled</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>server</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>http_listen_port</span><span class=p>:</span><span class=w> </span><span class=m>3100</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>common</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>path_prefix</span><span class=p>:</span><span class=w> </span><span class=l>/loki</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>storage</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>filesystem</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>chunks_directory</span><span class=p>:</span><span class=w> </span><span class=l>/loki/chunks</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>rules_directory</span><span class=p>:</span><span class=w> </span><span class=l>/loki/rules</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>replication_factor</span><span class=p>:</span><span class=w> </span><span class=m>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>ring</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>kvstore</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>store</span><span class=p>:</span><span class=w> </span><span class=l>inmemory</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>schema_config</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>configs</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>from</span><span class=p>:</span><span class=w> </span><span class=ld>2020-10-24</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>store</span><span class=p>:</span><span class=w> </span><span class=l>boltdb-shipper</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>object_store</span><span class=p>:</span><span class=w> </span><span class=l>filesystem</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>schema</span><span class=p>:</span><span class=w> </span><span class=l>v11</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>index</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>prefix</span><span class=p>:</span><span class=w> </span><span class=l>index_</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>period</span><span class=p>:</span><span class=w> </span><span class=l>24h</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>Note that this is just the default Loki configuration for a Loki instance running locally, so there is nothing particularly noteworthy here. However, the same is not true for Promtail! As before, we create a <code>promtail</code> directory with a <code>docker-config.yaml</code> inside it:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>server</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>http_listen_port</span><span class=p>:</span><span class=w> </span><span class=m>9080</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>grpc_listen_port</span><span class=p>:</span><span class=w> </span><span class=m>0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>positions</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>filename</span><span class=p>:</span><span class=w> </span><span class=l>/tmp/positions.yaml</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>clients</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=l>http://loki:3100/loki/api/v1/push</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>scrape_configs</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>job_name</span><span class=p>:</span><span class=w> </span><span class=l>scraper</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>docker_sd_configs</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>host</span><span class=p>:</span><span class=w> </span><span class=l>unix:///var/run/docker.sock</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>refresh_interval</span><span class=p>:</span><span class=w> </span><span class=l>5s</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>filters</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>label</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nt>values</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s2>&#34;logging=promtail&#34;</span><span class=p>]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>relabel_configs</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>source_labels</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s2>&#34;__meta_docker_container_name&#34;</span><span class=p>]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>regex</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/(.*)&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>target_label</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;container&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>source_labels</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s2>&#34;__meta_docker_container_log_stream&#34;</span><span class=p>]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>target_label</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;logstream&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>source_labels</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s2>&#34;__meta_docker_container_label_logging_jobname&#34;</span><span class=p>]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>target_label</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;job&#34;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>Let us unpack this. In our <code>docker-compose.yaml</code> file we have added two labels to our application: the <code>logging</code> and the <code>logging_jobname</code> labels, with values <code>promtail</code> and <code>container_logs</code>, respectively. This is what is going to be used by Promtail to know what to scrape, <em>i.e.</em>, what logs to collect, and how to relabel them. Additionally, we also have to specify the <code>host</code> under <code>docker_sd_configs</code> carefully, because it must be <code>unix:///var/run/docker.sock</code>, which is the socket to which Docker writes the application logs.</p><p>There is only one thing left to configure, and that is Grafana. We will create yet another directory with the most unexpected name ever, <code>grafana</code>, and we&rsquo;ll create two additional directories inside it: <code>datasources</code> and <code>provisioning</code>. Inside <code>provisioning</code>, we&rsquo;ll create a <code>dashboard.yaml</code> file with the following contents:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=m>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>providers</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;Loki&#39;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>orgId</span><span class=p>:</span><span class=w> </span><span class=m>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>folder</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;&#39;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>file</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>editable</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>options</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=l>/etc/grafana/provisioning/dashboards</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>And, inside the <code>datasources</code> directory, we&rsquo;ll create a <code>datasources.yaml</code> file to configure Loki as a data source for Grafana:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=m>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>datasources</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Loki</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>loki</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>access</span><span class=p>:</span><span class=w> </span><span class=l>proxy</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=l>http://localhost:3100</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>isDefault</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h2 id=pre-built-dashboards-in-a-docker-compose-grafana-instance>Pre-built dashboards in a Docker Compose Grafana instance</h2><p>It is obviously very boring and laborious to always have to create the dashboard from scratch just so we can explore the log messages properly. Fortunately, this actually only needs to be done once! Spin up the Docker Compose environment and navigate to your Grafana instance at <code>http://localhost:3000</code>. Create a dashboard as you normally would and then, when you save it, copy its JSON definition to the clipboard. To have this dashboard created by default, just paste this JSON into a <code>my_dashboard.json</code> file and place it inside the <code>grafana/provisioning</code> directory. And you&rsquo;re done, you&rsquo;ll never have to create that dashboard ever again.</p><h2 id=dealing-with-the-unauthorized-error-from-the-grafana-dashboard>Dealing with the &lsquo;Unauthorized&rsquo; error from the Grafana dashboard</h2><p>There is a chance that you get an &ldquo;Unauthorized&rdquo; error when attempting to access the Grafana dashboard on your Docker Compose Grafana instance. Fret not because this is exceedingly easy to solve. Simply open <code>http://localhost:3000</code> in a private/incognito browser and you&rsquo;ll no longer have this issue. This error pops up whenever you have already opened another Grafana instance in your browser before and thus your browser saved some Grafana session cookies that it then attempts to use for the instance you are running with Docker Compose. Obviously/hopefully this fails because these cookies are not a valid authorization method for the Grafana instance you just spun up.</p><h2 id=solving-the-too-many-outstanding-requests-error>Solving the &rsquo;too many outstanding requests&rsquo; error</h2><p>At the time of writing this, Loki is not shipped with sensible defaults. This translates to, if you build a few panels in a single dashboard, you start getting empty panels and a &ldquo;Too many outstanding requests&rdquo; error in Grafana (I got this error after adding 6 panels, which is very little). This is because Loki is shipped with a few limits on how many requests from Grafana it can handle. After tinkering with these limits for a while, I found that adding the following lines to the Loki config file solved that issue:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>limits_config</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>split_queries_by_interval</span><span class=p>:</span><span class=w> </span><span class=l>24h</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>max_query_parallelism</span><span class=p>:</span><span class=w> </span><span class=m>100</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>query_scheduler</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>max_outstanding_requests_per_tenant</span><span class=p>:</span><span class=w> </span><span class=m>4096</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>frontend</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>max_outstanding_per_tenant</span><span class=p>:</span><span class=w> </span><span class=m>4096</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>And now you&rsquo;re all set to efficiently explore logs from Docker Compose environments.</p><div class="details admonition tip open"><div class="details-summary admonition-title"><i class="icon fas fa-lightbulb fa-fw" aria-hidden=true></i>Link to the code<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><a href=https://github.com/ornlu-is/docker_compose_loki_example target=_blank rel="noopener noreffer">https://github.com/ornlu-is/docker_compose_loki_example</a></div></div></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2023-08-11</span></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><span></span></div></div></div><div class=post-info-more><section class=post-tags></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/clickhouse_docker_precreated_tables/ class=prev rel=prev title="Hassle-free table creation on start up for Clickhouse Docker containers"><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>Hassle-free table creation on start up for Clickhouse Docker containers</a></div></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>Luís Franco</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/katex/katex.min.css><link rel=stylesheet href=/lib/katex/copy-tex.min.css><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/katex/katex.min.js></script><script type=text/javascript src=/lib/katex/auto-render.min.js></script><script type=text/javascript src=/lib/katex/copy-tex.min.js></script><script type=text/javascript src=/lib/katex/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:30,type:"lunr"}}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>
