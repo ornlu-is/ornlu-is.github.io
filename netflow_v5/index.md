@@ -66,7 +66,7 @@ Let us clarify some of these fields. As you might've already noticed, the `srcad
 
 The `tcp_flags` field is a single byte used to represent TCP flags via a cumulative OR. If you are not familiar with TCP, it is sufficient to understand that each TCP datagram contains information on the TCP flags, which describe what operation or outcome was performed/observed. There are eight possible flags, which makes it fairly straight-forward to one-hot encode these. Then, to get a single byte representation of all possible combinations, we simply take the cumulative OR function of their bytes.
 
-One of the most important fields in NetFlow v5 is the `prot` field, which pertains to the possible protocol. While it might seem confusion that the protocol is a single number, we can easily get the corresponding name via the mapping published by the Internet Assigned Numbers Authority (IANA).
+One of the most important fields in NetFlow v5 is the `prot` field, which pertains to the possible protocol. While it might seem confusing that the protocol is a single number, we can easily get the corresponding name via the mapping published by the Internet Assigned Numbers Authority (IANA).
 
 ## Some considerations on using NetFlow v5 for analytics
 
