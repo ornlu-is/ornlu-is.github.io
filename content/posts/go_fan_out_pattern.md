@@ -8,6 +8,10 @@ draft: false
 
 I have written a blog post about the fan-in concurrency pattern and, unlike most texts on this matter, I left its counterpart, the fan-out concurrency pattern, to have its own post. While these two patterns are mostly used in tandem, I believe that it is fundamental to understand them separately, so as to not create any mental blockers that would coherce us to only use one pattern when the other is also required.
 
+{{< admonition type=tip title="Link to the code" open=true >}}
+https://github.com/ornlu-is/go_fan_out_pattern
+{{< /admonition >}}
+
 ## The Fan-Out pattern in Go
 
 {{< figure src="/images/go_fan_out_pattern/fan_out.png" width=0.5 height=0.5 title="Fan-Out pattern" >}}
