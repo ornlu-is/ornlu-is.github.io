@@ -1,0 +1,139 @@
+<!doctype html><html lang=en><head><script async src="https://www.googletagmanager.com/gtag/js?id=G-G300HG9GRT"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-G300HG9GRT")</script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>Go Concurrency Patterns: Fan-Out - Luís Franco</title><meta name=Description content="How to implement the fan-out concurrency pattern in Go"><meta property="og:title" content="Go Concurrency Patterns: Fan-Out"><meta property="og:description" content="How to implement the fan-out concurrency pattern in Go"><meta property="og:type" content="article"><meta property="og:url" content="https://ornlu-is.github.io/go_fan_out_pattern/"><meta property="og:image" content="https://ornlu-is.github.io/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2023-08-21T14:40:12+01:00"><meta property="article:modified_time" content="2023-08-21T15:47:20+01:00"><meta property="og:site_name" content="Super website"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://ornlu-is.github.io/logo.png"><meta name=twitter:title content="Go Concurrency Patterns: Fan-Out"><meta name=twitter:description content="How to implement the fan-out concurrency pattern in Go"><meta name=application-name content="My cool site"><meta name=apple-mobile-web-app-title content="My cool site"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://ornlu-is.github.io/go_fan_out_pattern/><link rel=prev href=https://ornlu-is.github.io/go_fan_in_pattern/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Go Concurrency Patterns: Fan-Out","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/ornlu-is.github.io\/go_fan_out_pattern\/"},"genre":"posts","wordcount":567,"url":"https:\/\/ornlu-is.github.io\/go_fan_out_pattern\/","datePublished":"2023-08-21T14:40:12+01:00","dateModified":"2023-08-21T15:47:20+01:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Luís Franco"},"description":"How to implement the fan-out concurrency pattern in Go"}</script></head><body data-header-desktop=auto data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"dark"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"dark"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Luís Franco">Luís Franco</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>Posts </a><a class=menu-item href=/categories/>Categories </a><a class=menu-item href=/about/>About </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder="Search titles or contents..." id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></span></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Luís Franco">Luís Franco</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder="Search titles or contents..." id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Cancel</a></div><a class=menu-item href=/posts/ title>Posts</a><a class=menu-item href=/categories/ title>Categories</a><a class=menu-item href=/about/ title>About</a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Go Concurrency Patterns: Fan-Out</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Luís Franco</a>
+</span>&nbsp;<span class=post-category>included in <a href=/categories/golang/><i class="far fa-folder fa-fw" aria-hidden=true></i>Golang</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2023-08-21>2023-08-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;567 words&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;3 minutes&nbsp;</div></div><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#the-fan-out-pattern-in-go>The Fan-Out pattern in Go</a></li></ul></nav></div></div><div class=content id=content><p>I have written a blog post about the fan-in concurrency pattern and, unlike most texts on this matter, I left its counterpart, the fan-out concurrency pattern, to have its own post. While these two patterns are mostly used in tandem, I believe that it is fundamental to understand them separately, so as to not create any mental blockers that would coherce us to only use one pattern when the other is also required.</p><h2 id=the-fan-out-pattern-in-go>The Fan-Out pattern in Go</h2><figure><img src=/images/go_fan_out_pattern/fan_out.png width=0.5 height=0.5><figcaption><h4>Fan-Out pattern</h4></figcaption></figure><p>While the fan-in concurrency pattern equates to multiplexing, <em>i.e.</em>, combining several data streams into a single one, the fan-out pattern does the opposite, it takes a single data stream and creates several concurrent streams. The obvious application for this pattern is when you want to concurrently process a data stream and you do not need your data to be processed in order. This last observation is crucial, since this pattern does not preserve the order by which the data is handled.</p><p>As with the fan-in example, I&rsquo;ll be creating a data stream from strings with the names of numbers, like so:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=nf>someNumberStrings</span><span class=p>()</span> <span class=o>&lt;-</span><span class=kd>chan</span> <span class=kt>string</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>ch</span> <span class=o>:=</span> <span class=nb>make</span><span class=p>(</span><span class=kd>chan</span> <span class=kt>string</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=nx>numberStrings</span> <span class=o>:=</span> <span class=p>[]</span><span class=kt>string</span><span class=p>{</span><span class=s>&#34;one&#34;</span><span class=p>,</span> <span class=s>&#34;two&#34;</span><span class=p>,</span> <span class=s>&#34;three&#34;</span><span class=p>,</span> <span class=s>&#34;four&#34;</span><span class=p>,</span> <span class=s>&#34;five&#34;</span><span class=p>,</span> <span class=s>&#34;six&#34;</span><span class=p>,</span> <span class=s>&#34;seven&#34;</span><span class=p>,</span> <span class=s>&#34;eight&#34;</span><span class=p>,</span> <span class=s>&#34;nine&#34;</span><span class=p>,</span> <span class=s>&#34;ten&#34;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>go</span> <span class=kd>func</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>for</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>numberString</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>numberStrings</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=nx>ch</span> <span class=o>&lt;-</span> <span class=nx>numberString</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=nb>close</span><span class=p>(</span><span class=nx>ch</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span>
+</span></span><span class=line><span class=cl>	<span class=p>}()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>ch</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>Demultiplexing this is incredibly straightforward. All we need is to read from the original channel into as many new channels as we&rsquo;d like. As such, we&rsquo;ll create a function, <code>demultiplexer</code>, which will spawn a new goroutine that will read from the original channel. Additionally, it will return a channel just so that we have some signal of when the goroutine stopped reading from the original stream. We end up with something like this:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=nf>demultiplexer</span><span class=p>(</span><span class=nx>worker</span> <span class=kt>string</span><span class=p>,</span> <span class=nx>ch</span> <span class=o>&lt;-</span><span class=kd>chan</span> <span class=kt>string</span><span class=p>)</span> <span class=kd>chan</span> <span class=kd>struct</span><span class=p>{}</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>stop</span> <span class=o>:=</span> <span class=nb>make</span><span class=p>(</span><span class=kd>chan</span> <span class=kd>struct</span><span class=p>{})</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>go</span> <span class=kd>func</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>defer</span> <span class=nb>close</span><span class=p>(</span><span class=nx>stop</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=k>for</span> <span class=nx>v</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>ch</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>worker</span><span class=p>,</span> <span class=nx>v</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=p>}()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>stop</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>Now, if we want to split our original stream into two streams, it suffices to call <code>demultiplexer</code> twice. We can then read from these new streams with a <code>for-select</code> loop, as shown below:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>originalStream</span> <span class=o>:=</span> <span class=nf>someNumberStrings</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>demuxedStream1</span> <span class=o>:=</span> <span class=nf>demultiplexer</span><span class=p>(</span><span class=s>&#34;demux1&#34;</span><span class=p>,</span> <span class=nx>originalStream</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=nx>demuxedStream2</span> <span class=o>:=</span> <span class=nf>demultiplexer</span><span class=p>(</span><span class=s>&#34;demux2&#34;</span><span class=p>,</span> <span class=nx>originalStream</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>for</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>if</span> <span class=nx>demuxedStream1</span> <span class=o>==</span> <span class=kc>nil</span> <span class=o>&amp;&amp;</span> <span class=nx>demuxedStream2</span> <span class=o>==</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=k>break</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=k>select</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>case</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>ok</span> <span class=o>:=</span> <span class=o>&lt;-</span><span class=nx>demuxedStream1</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>			<span class=k>if</span> <span class=p>!</span><span class=nx>ok</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>				<span class=nx>demuxedStream1</span> <span class=p>=</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl>			<span class=p>}</span>
+</span></span><span class=line><span class=cl>		<span class=k>case</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>ok</span> <span class=o>:=</span> <span class=o>&lt;-</span><span class=nx>demuxedStream2</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>			<span class=k>if</span> <span class=p>!</span><span class=nx>ok</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>				<span class=nx>demuxedStream2</span> <span class=p>=</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl>			<span class=p>}</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;bye&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>Note that, due to the nature of goroutines, whenever you run this program, you&rsquo;ll get a different result. For example, I obtained the following:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-plaintext data-lang=plaintext><span class=line><span class=cl>demux2 one
+</span></span><span class=line><span class=cl>demux2 two
+</span></span><span class=line><span class=cl>demux2 three
+</span></span><span class=line><span class=cl>demux2 four
+</span></span><span class=line><span class=cl>demux2 five
+</span></span><span class=line><span class=cl>demux1 six
+</span></span><span class=line><span class=cl>demux1 eight
+</span></span><span class=line><span class=cl>demux1 nine
+</span></span><span class=line><span class=cl>demux1 ten
+</span></span><span class=line><span class=cl>demux2 seven
+</span></span><span class=line><span class=cl>bye
+</span></span></code></pre></td></tr></table></div></div><p>But you can, and most certainly will, obtain a different one. This is inline with what I stated at the beginning of this post: this pattern is only useful if we do not care about the order in which our data is handled.</p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2023-08-21</span></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><span></span></div></div></div><div class=post-info-more><section class=post-tags></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/go_fan_in_pattern/ class=prev rel=prev title="Go Concurrency Patterns: Fan-In"><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>Go Concurrency Patterns: Fan-In</a></div></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>Luís Franco</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/katex/katex.min.css><link rel=stylesheet href=/lib/katex/copy-tex.min.css><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/katex/katex.min.js></script><script type=text/javascript src=/lib/katex/auto-render.min.js></script><script type=text/javascript src=/lib/katex/copy-tex.min.js></script><script type=text/javascript src=/lib/katex/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:30,type:"lunr"}}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>
