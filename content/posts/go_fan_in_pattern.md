@@ -1,6 +1,8 @@
 ---
 title: "Go Concurrency Patterns: Fan-In"
 date: 2023-08-21T09:38:20+01:00
+description: "How to implement the fan-in concurrency pattern in Go"
+categories: ["Golang"]
 draft: false
 ---
 
