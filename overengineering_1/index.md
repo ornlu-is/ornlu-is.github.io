@@ -24,21 +24,21 @@ There are obviously some more details in the specs for these machines, but these
 
 Which means I ended up spending a grand total of 387.45€. My wallet weeps but the thirst for overengineering must be properly quenched. Here is a badly taken picture of the whole material:
 
-{{< figure src="/images/overengineering/full_material_annotated.jpg" title="Hardware for overengineering" >}}
+{{< figure src="/images/overengineering_1/full_material_annotated.jpg" title="Hardware for overengineering" >}}
 
 ## Assembling the hardware
 
 Putting these things together is quite simple. To my surprise, the acrylic cases also came with heat sinks, which is a nice touch. Here is a picture of what the Raspberry Pi looks like after adding the heat sinks, which are the things inside the red circles:
 
-{{< figure src="/images/overengineering/raspberry_pi_heat_sink_annotated.jpg" title="Raspberry Pi with heat sinks" >}}
+{{< figure src="/images/overengineering_1/raspberry_pi_heat_sink_annotated.jpg" title="Raspberry Pi with heat sinks" >}}
 
 To connect the fans, I had to look up what the GPIO pin layout was for this model. It seems that the outermost second pin is 5V DC power, while the pin immediately to its right is the ground pin. Thus, connecting the fans is as simple as the picture below demonstrates:
 
-{{< figure src="/images/overengineering/raspberry_pi_fan_pins_annotated.jpg" title="Connecting the case fans to the Raspberry Pi" >}}
+{{< figure src="/images/overengineering_1/raspberry_pi_fan_pins_annotated.jpg" title="Connecting the case fans to the Raspberry Pi" >}}
 
 Then I attempted to place the Raspberry Pi inside the case. I say attempted because the board didn't fit inside the case. This is because the board had some imperfections around its edges. No problem, this is very easy to solve. All I had to do was very calmly file these imperfections until they were gone and the board could be placed in the case. Assembling the acrylic case is easy since it's just three pieces that are held together with magnets. The end result looks something like this:
 
-{{< figure src="/images/overengineering/raspberry_pi_assembled.jpg" title="Raspberry Pi machines inside their cases" >}}
+{{< figure src="/images/overengineering_1/raspberry_pi_assembled.jpg" title="Raspberry Pi machines inside their cases" >}}
 
 ## Next steps
 
