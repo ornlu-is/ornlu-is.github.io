@@ -80,9 +80,6 @@ Update the packages and install `salt-minion` with:
 sudo apt-get update
 sudo apt-get install salt-minion
 ```
-Navigate to `/etc/salt/minion.d`. 
-
-create a file named `master.conf` inside it with the following contents:
 
 Exactly the same as before, I want this to run on start up, so I'll enable it with `systemctl`, and start the service because I want to use it now:
 
@@ -132,7 +129,7 @@ zeus
 Rejected Keys:
 ```
 
-Now it has become extremely obvious why I was still getting an error: I needed my Salt master to accept `zeus`' key! This boils down to a single command:
+Now it has become extremely obvious why I was still getting an error: I needed my Salt master to accept `zeus` key! This boils down to a single command:
 
 ```
 sudo salt-key -a zeus
