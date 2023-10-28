@@ -1,0 +1,161 @@
+<!doctype html><html lang=en><head><script async src="https://www.googletagmanager.com/gtag/js?id=G-G300HG9GRT"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-G300HG9GRT")</script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>Adventures in Overengineering 4: Installing Node Exporter via Salt - Luís Franco</title><meta name=Description content="How to install Node Exporter via Salt on Raspberry Pi machines."><meta property="og:title" content="Adventures in Overengineering 4: Installing Node Exporter via Salt"><meta property="og:description" content="How to install Node Exporter via Salt on Raspberry Pi machines."><meta property="og:type" content="article"><meta property="og:url" content="https://ornlu-is.github.io/overengineering_4/"><meta property="og:image" content="https://ornlu-is.github.io/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2023-10-28T13:49:05+01:00"><meta property="article:modified_time" content="2023-10-28T20:33:21+01:00"><meta property="og:site_name" content="Super website"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://ornlu-is.github.io/logo.png"><meta name=twitter:title content="Adventures in Overengineering 4: Installing Node Exporter via Salt"><meta name=twitter:description content="How to install Node Exporter via Salt on Raspberry Pi machines."><meta name=application-name content="My cool site"><meta name=apple-mobile-web-app-title content="My cool site"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://ornlu-is.github.io/overengineering_4/><link rel=prev href=https://ornlu-is.github.io/overengineering_3/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Adventures in Overengineering 4: Installing Node Exporter via Salt","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/ornlu-is.github.io\/overengineering_4\/"},"genre":"posts","wordcount":1043,"url":"https:\/\/ornlu-is.github.io\/overengineering_4\/","datePublished":"2023-10-28T13:49:05+01:00","dateModified":"2023-10-28T20:33:21+01:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Luís Franco"},"description":"How to install Node Exporter via Salt on Raspberry Pi machines."}</script></head><body data-header-desktop=auto data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"dark"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"dark"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Luís Franco">Luís Franco</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>Posts </a><a class=menu-item href=/categories/>Categories </a><a class=menu-item href=/about/>About </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder="Search titles or contents..." id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></span></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Luís Franco">Luís Franco</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder="Search titles or contents..." id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Cancel</a></div><a class=menu-item href=/posts/ title>Posts</a><a class=menu-item href=/categories/ title>Categories</a><a class=menu-item href=/about/ title>About</a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Adventures in Overengineering 4: Installing Node Exporter via Salt</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Luís Franco</a>
+</span>&nbsp;<span class=post-category>included in <a href=/categories/adventures-in-overengineering/><i class="far fa-folder fa-fw" aria-hidden=true></i>Adventures in Overengineering</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2023-10-28>2023-10-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;1043 words&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;5 minutes&nbsp;</div></div><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#collecting-metrics-with-node-exporter>Collecting metrics with Node Exporter</a></li><li><a href=#installing-node-exporter-with-salt>Installing Node Exporter with Salt</a></li><li><a href=#verifying-the-result>Verifying the result</a></li><li><a href=#next-steps>Next steps</a></li></ul></nav></div></div><div class=content id=content><p>I have a bunch of physical machines and it is important to keep track of how healthy these machines are. More specifically, I want to keep track of some key metrics such as how much CPU or memory is being used and disk space. Additionally, I also want to keep track of the temperature of these machines because I do not want to accidentally burn down my house (that would really destroy the budget for this project).</p><h2 id=collecting-metrics-with-node-exporter>Collecting metrics with Node Exporter</h2><p>There is this fantastic piece of software by Grafana Labs called Prometheus Node Exporter. What it does is very simple: it is a single static binary that exposes a bunch of hardware and kernel related metrics. This is precisely what I want to monitor my Raspberry Pi machines! If we look at <a href=https://prometheus.io/docs/guides/node-exporter/ target=_blank rel="noopener noreffer">Node Exporter&rsquo;s official documentation</a>
+, we can see that it is fairly easy to install directly: just download, extract and run the binary. However, we&rsquo;re here to overengineer stuff, so, instead of installing it directly, I&rsquo;m going to install it via Salt, which I have previously configured in the <a href=https://ornlu-is.github.io/overengineering_3/ target=_blank rel="noopener noreffer">previous post</a>
+of this series.</p><h2 id=installing-node-exporter-with-salt>Installing Node Exporter with Salt</h2><p>This is also the first piece of software I&rsquo;m going to install on my machines with Salt, which is exciting! On my laptop, <em>i.e.</em>, the Salt master, I under the <code>/srv/</code> directory, I create a <code>salt/</code> directory with the following contents:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-plaintext data-lang=plaintext><span class=line><span class=cl>.
+</span></span><span class=line><span class=cl>├── node-exporter
+</span></span><span class=line><span class=cl>│   ├── files
+</span></span><span class=line><span class=cl>│   │   └── node_exporter.service
+</span></span><span class=line><span class=cl>│   └── init.sls
+</span></span><span class=line><span class=cl>└── top.sls
+</span></span></code></pre></td></tr></table></div></div><p>In other words, I created a Salt highstate, which is nothing more than a way to let Salt know which formulas should be applied to which minions. This targeting is achieved with a top file (<code>top.sls</code>). Since I have three minions named <code>zeus</code>, <code>ares</code>, and <code>poseidon</code>, my top file looks as follows:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>base</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>&#39;*&#39;</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>node-exporter</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>zeus</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>node-exporter</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>ares</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>node-exporter</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>poseidon</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>node-exporter</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>Meaning that, whenever I call salt, I can choose to target any of my minions or all of them with the Kleene star. This also defined what is applied to each target which, in this case, is the <code>node-exporter</code> formula for all targets. This formula is defined under <code>node-exporter/init.sls</code> and is responsible for installing and running Node Exporter. Let&rsquo;s take a closer look at it:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl>{<span class=l>% if not salt[&#39;file.file_exists&#39;](&#39;/usr/local/bin/node_exporter&#39;) %}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>retrieve_node_exporter</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>cmd.run</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>wget -O /tmp/node_exporter.tar.gz https://github.com/prometheus/node_exporter/releases/download/v1.6.1/node_exporter-1.6.1.linux-arm64.tar.gz</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>extract_node_exporter</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>archive.extracted</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>/tmp</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>enforce_toplevel</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>source</span><span class=p>:</span><span class=w> </span><span class=l>/tmp/node_exporter.tar.gz</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>archive_format</span><span class=p>:</span><span class=w> </span><span class=l>tar</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>user</span><span class=p>:</span><span class=w> </span><span class=l>root</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=l>root</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>move_node_exporter</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>file.rename</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>/usr/local/bin/node_exporter</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>source</span><span class=p>:</span><span class=w> </span><span class=l>/tmp/node_exporter-1.6.1.linux-arm64/node_exporter</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>delete_node_exporter_dir</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>file.absent</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>/tmp/node_exporter-1.6.1.linux-arm64</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>delete_node_exporter_files</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>file.absent</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>/tmp/node_exporter.tar.gz</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span>{<span class=l>% endif %}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>/etc/systemd/system/node_exporter.service</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>file.managed</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>source</span><span class=p>:</span><span class=w> </span><span class=l>salt://node-exporter/files/node_exporter.service</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>user</span><span class=p>:</span><span class=w> </span><span class=l>root</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=l>root</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>mode</span><span class=p>:</span><span class=w> </span><span class=m>0644</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>node_exporter_service_enable</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>cmd.run</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>systemctl daemon-reload</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>watch</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>file</span><span class=p>:</span><span class=w> </span><span class=l>/etc/systemd/system/node_exporter.service</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>node_exporter_service</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>service.running</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>node_exporter</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>enable</span><span class=p>:</span><span class=w> </span><span class=kc>True</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>The first part, <code>retrieve_node_exporter</code>, simply downloads the <code>.tar.gz</code> file from the compressed Node Exporter binary into the <code>tmp/</code> directory. Since it is compressed, we have to then, you&rsquo;ve guessed it, decompress the file using <code>extract_node_exporter</code>. The extracted binary is now inside the <code>tmp/</code> directory so we move it to <code>usr/local/bin/</code> using <code>move_node_exporter</code>. Since we have already extracted and moved the binary, we can delete the directory created during the extraction process and <code>.tar.gz</code> file, respectively, with <code>delete_node_exporter_dir</code> and <code>delete_node_exporter_files</code>. Note that all these states are enclosed in an if statement, meaning that these are only executed in case <code>/usr/local/bin/node_exporter</code> does not exist. In other words, these commands are only executed if Node Exporter is not installed.</p><p>Now we need a way to actually run the service. Since I&rsquo;m running Ubuntu on my Raspberry Pi machines, all the processes running on them are managed by the init process known as <code>systemd</code>, which means that I need a way to let <code>systemd</code> know that Node Exporter exists and I also need a way for <code>systemd</code> to run Node Exporter whenever the system starts up. For that purpose, I have defined a very simple <code>systemd</code> unit file called <code>node_exporter.service</code> under <code>/srv/salt/node-exporter/files/</code>, which looks like this:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-plaintext data-lang=plaintext><span class=line><span class=cl>[Unit]
+</span></span><span class=line><span class=cl>Description=Node Exporter
+</span></span><span class=line><span class=cl>After=network.target
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>[Service]
+</span></span><span class=line><span class=cl>Type=simple
+</span></span><span class=line><span class=cl>ExecStart=/usr/local/bin/node_exporter
+</span></span></code></pre></td></tr></table></div></div><p>All it does is say that there is a service called <code>node_exporter</code> that is started after the system&rsquo;s network is up. We then tell Salt to add this unit file as a managed file to <code>systemd</code> and that the service this file refers to must be ran at high priority, which is achieved by having it placed under the <code>/etc/systemd/system/</code> directory. Then, we reload <code>systemd</code> to get these unit files in memory with <code>node_exporter_service_enable</code> which simply runs <code>systemctl daemon-reload</code>. Lastly, we run the service with <code>node_exporter_service</code>.</p><p>Finally, it&rsquo;s time to push the button, by calling:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>sudo salt &#39;*&#39; salt.highstate
+</span></span></code></pre></td></tr></table></div></div><p>And let Salt work its magic!</p><h2 id=verifying-the-result>Verifying the result</h2><p>We can verify this result in a fairly straightforward manner. The Node Exporter essentially exposes an HTTP endpoint that publishes the metrics collected by it. This HTTP endpoint is running, by default, on port 9100 and the path to it is just <code>/metrics</code>. Since all my Raspberry Pi machines are running on my local network, I can verify if Node Exporter is running properly by simple <code>curl</code>ing this endpoint on each of the hosts:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>curl poseidon.local:9100/metrics
+</span></span><span class=line><span class=cl>curl ares.local:9100/metrics
+</span></span><span class=line><span class=cl>curl zeus.local:9100/metrics
+</span></span></code></pre></td></tr></table></div></div><p>If you get a wall of text with a bunch of metric names and numbers on your terminal for each of these commands then congratulations, Node Exporter is up and running!</p><h2 id=next-steps>Next steps</h2><p>Ideally, I would have these files in a repository somewhere. This can be achieved by specifying a different backend for Salt and using <code>gitfs</code> to mount the <code>/srv/salt/</code> directory from a <code>git</code> remote repository. I haven&rsquo;t done that yet, but it is part of my future plans. Mainly because the next post will be about actually scraping the metrics collected by the several Node Exporter instances and visualizing them in a single Grafana instance.</p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2023-10-28</span></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><span></span></div></div></div><div class=post-info-more><section class=post-tags></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/overengineering_3/ class=prev rel=prev title="Adventures in Overengineering 3: Installing Salt to manage Raspberry Pi machines"><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>Adventures in Overengineering 3: Installing Salt to manage Raspberry Pi machines</a></div></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>Luís Franco</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/katex/katex.min.css><link rel=stylesheet href=/lib/katex/copy-tex.min.css><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/katex/katex.min.js></script><script type=text/javascript src=/lib/katex/auto-render.min.js></script><script type=text/javascript src=/lib/katex/copy-tex.min.js></script><script type=text/javascript src=/lib/katex/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:30,type:"lunr"}}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>
