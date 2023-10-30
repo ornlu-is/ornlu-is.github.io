@@ -8,6 +8,13 @@ draft: false
 
 Now that I have some hardware available, I need to install an operating system on these machines so that I can then install some software that will enable me to actually do something with these things. Since I do not want to have to connect a monitor to these machines every time I need to use them, I also have to set up some type of remote access.
 
+{{< admonition type=tip title="Other posts in this series" open=true >}}
+* [Adventures in Overengineering 1: Inventory](https://ornlu-is.github.io/overengineering_1/)
+* [Adventures in Overengineering 3: Installing Salt to manage Raspberry Pi machines](https://ornlu-is.github.io/overengineering_3/)
+* [Adventures in Overengineering 4: Installing Node Exporter via Salt](https://ornlu-is.github.io/overengineering_4/)
+* [Adventures in Overengineering 5: Monitoring Raspberry Pi Machines with Prometheus and Grafana](https://ornlu-is.github.io/overengineering_5/)
+{{< /admonition >}}
+
 ## Preparing the microSD cards
 
 This part is extremely simple. On my Windows machine, I downloaded the Raspberry Pi imager, a software that burns Raspberry Pi compatible OS images onto storage devices. Flashing the OS is straightforward with this software: just plug in the storage device, select the operating system in the imager (in my case, I chose 64-bit Ubuntu Server 23.04), name the computers, enable `ssh` and configure Wi-Fi connection in the advanced configurations, and wait until the imager finished burning the OS image. Rinse and repeat for all three microSD cards, and then just plug them onto the Raspberry Pi machines.

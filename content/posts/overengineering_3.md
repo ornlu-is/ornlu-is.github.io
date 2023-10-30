@@ -10,6 +10,13 @@ I have three machines with Ubuntu installs up and running but there is one thing
 
 Just a reminder that all this is still for the same initial goal: over-engineering a basic Golang web server.
 
+{{< admonition type=tip title="Other posts in this series" open=true >}}
+* [Adventures in Overengineering 1: Inventory](https://ornlu-is.github.io/overengineering_1/)
+* [Adventures in Overengineering 2: Installing an Operating System](https://ornlu-is.github.io/overengineering_2/)
+* [Adventures in Overengineering 4: Installing Node Exporter via Salt](https://ornlu-is.github.io/overengineering_4/)
+* [Adventures in Overengineering 5: Monitoring Raspberry Pi Machines with Prometheus and Grafana](https://ornlu-is.github.io/overengineering_5/)
+{{< /admonition >}}
+
 ## Installing `salt-master`
 
 I do not want to use any of the Raspberry Pis as a `salt-master`, so I'll be using my laptop for it. First, we import the Salt Project repository key using:

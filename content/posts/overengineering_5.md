@@ -1,12 +1,19 @@
 ---
 title: "Adventures in Overengineering 5: Monitoring Raspberry Pi Machines with Prometheus and Grafana"
 categories: ["Adventures in Overengineering"]
-description: "Some description"
+description: "Installing and configuring Prometheus and Grafana to monitor Raspberry Pi machines."
 date: 2023-10-30T10:46:29Z
 draft: false
 ---
 
 With Node Exporter installed in each of the Raspberry Pi machines, I can now start scraping these metrics and actually using them to build a dashboard to monitor my machines. And this is also the step in which I create a GitHub repository where all scripts and configuration files used are stored, just in case my laptop decides to perish a second time and I have to go through this all over again (RIP my old SSD).
+
+{{< admonition type=tip title="Other posts in this series" open=true >}}
+* [Adventures in Overengineering 1: Inventory](https://ornlu-is.github.io/overengineering_1/)
+* [Adventures in Overengineering 2: Installing an Operating System](https://ornlu-is.github.io/overengineering_2/)
+* [Adventures in Overengineering 3: Installing Salt to manage Raspberry Pi machines](https://ornlu-is.github.io/overengineering_3/)
+* [Adventures in Overengineering 4: Installing Node Exporter via Salt](https://ornlu-is.github.io/overengineering_4/)
+{{< /admonition >}}
 
 {{< admonition type=tip title="Link to the code" open=true >}}
 https://github.com/ornlu-is/olympus
