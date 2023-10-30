@@ -3,6 +3,13 @@
 
 I have a bunch of physical machines and it is important to keep track of how healthy these machines are. More specifically, I want to keep track of some key metrics such as how much CPU or memory is being used and disk space. Additionally, I also want to keep track of the temperature of these machines because I do not want to accidentally burn down my house (that would really destroy the budget for this project).
 
+{{< admonition type=tip title="Other posts in this series" open=true >}}
+* [Adventures in Overengineering 1: Inventory](https://ornlu-is.github.io/overengineering_1/)
+* [Adventures in Overengineering 2: Installing an Operating System](https://ornlu-is.github.io/overengineering_2/)
+* [Adventures in Overengineering 3: Installing Salt to manage Raspberry Pi machines](https://ornlu-is.github.io/overengineering_3/)
+* [Adventures in Overengineering 5: Monitoring Raspberry Pi Machines with Prometheus and Grafana](https://ornlu-is.github.io/overengineering_5/)
+{{< /admonition >}}
+
 ## Collecting metrics with Node Exporter
 
 There is this fantastic piece of software by Grafana Labs called Prometheus Node Exporter. What it does is very simple: it is a single static binary that exposes a bunch of hardware and kernel related metrics. This is precisely what I want to monitor my Raspberry Pi machines! If we look at [Node Exporter's official documentation](https://prometheus.io/docs/guides/node-exporter/), we can see that it is fairly easy to install directly: just download, extract and run the binary. However, we're here to overengineer stuff, so, instead of installing it directly, I'm going to install it via Salt, which I have previously configured in the [previous post](https://ornlu-is.github.io/overengineering_3/) of this series.

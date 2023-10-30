@@ -3,6 +3,13 @@
 
 A few months ago, I started a series of posts about my attempt to completely overengineer a simple Go web server. After a few posts, I had to archive that series. I was not pleased with the result, it wasn't... enough. Last time, I began this adventure by running a Kubernetes instance on my laptop. This time, I've gone deeper into the overengineering madness. Keep in mind that the end goal is still to deploy a very basic Golang web server.
 
+{{< admonition type=tip title="Other posts in this series" open=true >}}
+* [Adventures in Overengineering 2: Installing an Operating System](https://ornlu-is.github.io/overengineering_2/)
+* [Adventures in Overengineering 3: Installing Salt to manage Raspberry Pi machines](https://ornlu-is.github.io/overengineering_3/)
+* [Adventures in Overengineering 4: Installing Node Exporter via Salt](https://ornlu-is.github.io/overengineering_4/)
+* [Adventures in Overengineering 5: Monitoring Raspberry Pi Machines with Prometheus and Grafana](https://ornlu-is.github.io/overengineering_5/)
+{{< /admonition >}}
+
 ## Acquiring hardware
 
 Yep, you read that right, the first step is to acquire some hardware. How much hardware? Well, I want to create a three node Kubernetes cluster. As such, I need three machines. As with any engineering project, budget is something to keep in mind as I'd rather not go broke over this. This means that the most in-budget option for me is to buy a some Raspberry Pi machines. In particular, I bought 3 Raspberry Pi 4 Model B machines with the following specs:
