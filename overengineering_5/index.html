@@ -1,0 +1,316 @@
+<!doctype html><html lang=en><head><script async src="https://www.googletagmanager.com/gtag/js?id=G-G300HG9GRT"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-G300HG9GRT")</script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>Adventures in Overengineering 5: Monitoring Raspberry Pi Machines with Prometheus and Grafana - Luís Franco</title><meta name=Description content="Some description"><meta property="og:title" content="Adventures in Overengineering 5: Monitoring Raspberry Pi Machines with Prometheus and Grafana">
+<meta property="og:description" content="Some description"><meta property="og:type" content="article"><meta property="og:url" content="https://ornlu-is.github.io/overengineering_5/"><meta property="og:image" content="https://ornlu-is.github.io/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2023-10-30T10:46:29+00:00"><meta property="article:modified_time" content="2023-10-30T17:56:28+00:00"><meta property="og:site_name" content="Super website"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://ornlu-is.github.io/logo.png"><meta name=twitter:title content="Adventures in Overengineering 5: Monitoring Raspberry Pi Machines with Prometheus and Grafana"><meta name=twitter:description content="Some description"><meta name=application-name content="My cool site"><meta name=apple-mobile-web-app-title content="My cool site"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://ornlu-is.github.io/overengineering_5/><link rel=prev href=https://ornlu-is.github.io/overengineering_4/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Adventures in Overengineering 5: Monitoring Raspberry Pi Machines with Prometheus and Grafana","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/ornlu-is.github.io\/overengineering_5\/"},"genre":"posts","wordcount":1561,"url":"https:\/\/ornlu-is.github.io\/overengineering_5\/","datePublished":"2023-10-30T10:46:29+00:00","dateModified":"2023-10-30T17:56:28+00:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Luís Franco"},"description":"Some description"}</script></head><body data-header-desktop=auto data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"dark"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"dark"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Luís Franco">Luís Franco</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>Posts </a><a class=menu-item href=/categories/>Categories </a><a class=menu-item href=/about/>About </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder="Search titles or contents..." id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i>
+</a><span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></span></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Luís Franco">Luís Franco</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder="Search titles or contents..." id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i>
+</a><span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Cancel</a></div><a class=menu-item href=/posts/ title>Posts</a><a class=menu-item href=/categories/ title>Categories</a><a class=menu-item href=/about/ title>About</a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Adventures in Overengineering 5: Monitoring Raspberry Pi Machines with Prometheus and Grafana</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Luís Franco</a>
+</span>&nbsp;<span class=post-category>included in <a href=/categories/adventures-in-overengineering/><i class="far fa-folder fa-fw" aria-hidden=true></i>Adventures in Overengineering</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2023-10-30>2023-10-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;1561 words&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;8 minutes&nbsp;</div></div><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#installing-and-configuring-prometheus>Installing and configuring Prometheus</a></li><li><a href=#installing-grafana-with-a-prebuilt-dashboard>Installing Grafana with a prebuilt dashboard</a></li><li><a href=#convenience-is-king>Convenience is king</a></li><li><a href=#next-steps>Next steps</a></li></ul></nav></div></div><div class=content id=content><p>With Node Exporter installed in each of the Raspberry Pi machines, I can now start scraping these metrics and actually using them to build a dashboard to monitor my machines. And this is also the step in which I create a GitHub repository where all scripts and configuration files used are stored, just in case my laptop decides to perish a second time and I have to go through this all over again (RIP my old SSD).</p><div class="details admonition tip open"><div class="details-summary admonition-title"><i class="icon fas fa-lightbulb fa-fw" aria-hidden=true></i>Link to the code<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><a href=https://github.com/ornlu-is/olympus target=_blank rel="noopener noreffer">https://github.com/ornlu-is/olympus</a></div></div></div><h2 id=installing-and-configuring-prometheus>Installing and configuring Prometheus</h2><p>Node Exporter functions by periodically publishing metrics to an HTTP endpoint that is queriable by other services. This means that all we need is something that periodically scrapes and stores these metrics and then we need another something to actually visualize the metrics we&rsquo;ve stored. Once again, Grafana labs comes to the rescue with Prometheus, an open-source monitoring system and time series database, and with Grafana, an open-source analytics and interactive visualization web application.</p><p>After some tinkering and online research, I came up with the following script <code>bash</code> script for installing Prometheus:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=cp>#!/bin/bash
+</span></span></span><span class=line><span class=cl><span class=cp></span>
+</span></span><span class=line><span class=cl><span class=c1># Download and extract most recent Prometheus version</span>
+</span></span><span class=line><span class=cl><span class=nv>VERSION</span><span class=o>=</span><span class=k>$(</span>curl https://raw.githubusercontent.com/prometheus/prometheus/master/VERSION<span class=k>)</span>
+</span></span><span class=line><span class=cl>wget https://github.com/prometheus/prometheus/releases/download/v<span class=si>${</span><span class=nv>VERSION</span><span class=si>}</span>/prometheus-<span class=si>${</span><span class=nv>VERSION</span><span class=si>}</span>.linux-amd64.tar.gz
+</span></span><span class=line><span class=cl>tar xvzf prometheus-<span class=si>${</span><span class=nv>VERSION</span><span class=si>}</span>.linux-amd64.tar.gz
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Create directories and files for Prometheus configuration</span>
+</span></span><span class=line><span class=cl>sudo mkdir /etc/prometheus
+</span></span><span class=line><span class=cl>sudo mkdir /var/lib/prometheus
+</span></span><span class=line><span class=cl>sudo touch /etc/prometheus/prometheus.yaml
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Copy the Prometheus binary to the appropriate location</span>
+</span></span><span class=line><span class=cl>sudo cp prometheus-<span class=si>${</span><span class=nv>VERSION</span><span class=si>}</span>.linux-amd64/prometheus /usr/local/bin/
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Write the configuration file</span>
+</span></span><span class=line><span class=cl>cat ./infrastructure/prometheus/prometheus.yaml <span class=p>|</span> sudo tee /etc/prometheus/prometheus.yaml
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Write the systemd unit file for Prometheus</span>
+</span></span><span class=line><span class=cl>cat ./install-scripts/prometheus/prometheus.service <span class=p>|</span> sudo tee /etc/systemd/system/prometheus.service
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Reload systemd, enable and start Prometheus</span>
+</span></span><span class=line><span class=cl>sudo systemctl daemon-reload
+</span></span><span class=line><span class=cl>sudo systemctl <span class=nb>enable</span> prometheus
+</span></span><span class=line><span class=cl>sudo systemctl start prometheus
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Cleanup installation files</span>
+</span></span><span class=line><span class=cl>rm prometheus-<span class=si>${</span><span class=nv>VERSION</span><span class=si>}</span>.linux-amd64.tar.gz
+</span></span><span class=line><span class=cl>rm -rf prometheus-<span class=si>${</span><span class=nv>VERSION</span><span class=si>}</span>.linux-amd64
+</span></span></code></pre></td></tr></table></div></div><p>The steps it performs are fairly simple:</p><ul><li>Download and extract the Prometheus binary;</li><li>Create the <code>/etc/prometheus</code> directory and the <code>prometheus.yaml</code> file inside it, which will hold all the basic configuration for my Prometheus instance;</li><li>Create the <code>/var/lib/prometheus</code> directory, which will contain the actual Prometheus time series database;</li><li>Copy the Prometheus binary to the appropriate location so that it can be executed;</li><li>Write the contents of the Prometheus configuration file;</li><li>Write the <code>systemd</code> unit file for Prometheus;</li><li>Reload <code>systemd</code> for it to load the Prometheus unit file, enable the Prometheus service (for it to run on startup), and start the service;</li><li>Cleanup the installation files.</li></ul><p>My Prometheus configuration file is going to be very simple. All I want is for Prometheus to scrape metrics every 5 seconds, and I also need to tell Prometheus whose metrics to scrape. In other words, I have to point Prometheus to the <code>/metrics</code> HTTP endpoint of each Raspberry Pi. This results in the following <code>prometheus.yaml</code> file:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>global</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>scrape_interval</span><span class=p>:</span><span class=w> </span><span class=l>5s</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>scrape_configs</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>job_name</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;zeus&#39;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>metrics_path</span><span class=p>:</span><span class=w> </span><span class=l>/metrics</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>static_configs</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>targets</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s1>&#39;192.168.1.75:9100&#39;</span><span class=p>]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>job_name</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;poseidon&#39;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>metrics_path</span><span class=p>:</span><span class=w> </span><span class=l>/metrics</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>static_configs</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>targets</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s1>&#39;192.168.1.76:9100&#39;</span><span class=p>]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>job_name</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;ares&#39;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>metrics_path</span><span class=p>:</span><span class=w> </span><span class=l>/metrics</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>static_configs</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>targets</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s1>&#39;192.168.1.77:9100&#39;</span><span class=p>]</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>You might be wondering why I am referring to the machines by their IP address and not their name in my local network. This is because when I used, for example, <code>zeus.local</code>, I got an error from Prometheus with a message stating &ldquo;server misbehaving&rdquo;. After some online digging I figured that it might be some kind of issue with my local DNS resolution, so I just switched to the local IP address, and the error was gone. I plan to eventually do some more investigation on this issue but, for now, this solution is good enough.</p><p>In my install script there is also reference to a <code>systemd</code> unit file for Prometheus. The unit file I came up is the following:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-plaintext data-lang=plaintext><span class=line><span class=cl>[Unit]
+</span></span><span class=line><span class=cl>Description=Prometheus
+</span></span><span class=line><span class=cl>After=network-online.target
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>[Service]
+</span></span><span class=line><span class=cl>Type=simple
+</span></span><span class=line><span class=cl>ExecStart=/usr/local/bin/prometheus \
+</span></span><span class=line><span class=cl>    --config.file /etc/prometheus/prometheus.yaml \
+</span></span><span class=line><span class=cl>    --storage.tsdb.path /var/lib/prometheus/ \
+</span></span><span class=line><span class=cl>    --storage.tsdb.retention.time=1d
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>[Install]
+</span></span><span class=line><span class=cl>WantedBy=multi-user.target
+</span></span></code></pre></td></tr></table></div></div><p>There is nothing out of ordinary with this unit file. The only thing in it that is worth mentioning is the <code>--storage.tsdb.retention</code> parameter for when we are starting the Prometheus service. This parameter tells Prometheus how long it should store the metric values that it scrapes. Since I only turn on the Raspberry Pi machines when I&rsquo;m using them, I have little to no use for metrics that are older than a day (and even that might be too much).</p><p>Finally, we can check if Prometheus was installed properly by navigating to <code>localhost:9090</code>, where we should see the Prometheus UI. Additionally, we also need to check if it is scraping metrics correctly. We can do this by navigating to <code>http://localhost:9090/targets</code> and checking if there is some message in the error column. If not, this whole process was successful!</p><h2 id=installing-grafana-with-a-prebuilt-dashboard>Installing Grafana with a prebuilt dashboard</h2><p>The Grafana installation is a bit more straightforward. Taking the official install documentation and placing it a <code>bash</code> script produces the following outcome:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=cp>#!/bin/bash
+</span></span></span><span class=line><span class=cl><span class=cp></span>
+</span></span><span class=line><span class=cl><span class=c1># Install the prerequisite packages</span>
+</span></span><span class=line><span class=cl>sudo apt install -y apt-transport-https software-properties-common wget
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Import the GPG key</span>
+</span></span><span class=line><span class=cl>mkdir -p /etc/apt/keyrings/
+</span></span><span class=line><span class=cl>wget -q -O - https://apt.grafana.com/gpg.key <span class=p>|</span> gpg --dearmor <span class=p>|</span> sudo tee /etc/apt/keyrings/grafana.gpg &gt; /dev/null
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Add the Grafana stable release repository</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main&#34;</span> <span class=p>|</span> sudo tee -a /etc/apt/sources.list.d/grafana.list
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Update the list of available packages</span>
+</span></span><span class=line><span class=cl>sudo apt update
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Install Grafana</span>
+</span></span><span class=line><span class=cl>sudo apt install grafana
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Configure data sources</span>
+</span></span><span class=line><span class=cl>sudo touch /etc/grafana/provisioning/datasources/datasources.yaml
+</span></span><span class=line><span class=cl>cat ./infrastructure/grafana/provisioning/datasources/datasources.yaml <span class=p>|</span> sudo tee /etc/grafana/provisioning/datasources/datasources.yaml
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Configure pre-built dashboard</span>
+</span></span><span class=line><span class=cl>sudo mkdir /var/lib/grafana/dashboards
+</span></span><span class=line><span class=cl>cat ./infrastructure/grafana/dashboards/dashboard.yaml <span class=p>|</span> sudo tee /etc/grafana/provisioning/dashboards/dashboard.yaml
+</span></span><span class=line><span class=cl>cat ./infrastructure/grafana/dashboards/nodes.json <span class=p>|</span> sudo tee /var/lib/grafana/dashboards/nodes.json
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Reload systemd, enable and start Grafana</span>
+</span></span><span class=line><span class=cl>sudo systemctl daemon-reload
+</span></span><span class=line><span class=cl>sudo systemctl <span class=nb>enable</span> grafana-server
+</span></span><span class=line><span class=cl>sudo systemctl start grafana-server
+</span></span></code></pre></td></tr></table></div></div><p>Running this script will install Grafana as well as configure it to run on startup with <code>systemd</code>. It also configures our Prometheus instance as the default data source for Grafana using the <code>datasources.yaml</code> file:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=m>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>datasources</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Prometheus</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>prometheus</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>access</span><span class=p>:</span><span class=w> </span><span class=l>proxy</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=l>http://localhost:9090</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>isDefault</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>Additionaly, this script also creates a fully functional Grafana dashboard to monitor my Raspberry Pi machines! I found this dashboard in a <a href=https://github.com/rfmoz/grafana-dashboards/blob/master/prometheus/node-exporter-full.json target=_blank rel="noopener noreffer">GitHub repository</a>
+that is filled with panels with just about anything one might want to visualize that is exposed by Node Exporter.</p><p>Since Grafana stores dashboards as JSON files, all we have to do is download the dashboard&rsquo;s JSON representation from the repository, place the following configuration in the appropriate directory:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=m>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>providers</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;Prometheus&#39;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>orgId</span><span class=p>:</span><span class=w> </span><span class=m>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>folder</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;&#39;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>file</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>disableDeletion</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>editable</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>options</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=l>/var/lib/grafana/dashboards</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>And then place the dashboard&rsquo;s JSON file in the path specified above. My script already does all this for me, which is great! After running the script, you can navigate to <code>localhost:3000</code> where you&rsquo;ll be prompted for your Grafana credentials. Both the username and the password are <code>admin</code>. After that, you&rsquo;ll be prompted to change your password, which you should probably do. Now, Grafana is up and running and we have a dashboard that looks like this:</p><figure><img src=/images/overengineering_5/grafana_dashboard.png><figcaption><h4>Node Exporter Grafana dashboard</h4></figcaption></figure><p>Pretty neat!</p><h2 id=convenience-is-king>Convenience is king</h2><p>I&rsquo;m not very good at memorising bash commands and where every single file is. Fortunately, I do not have to be, I can just create a Makefile that abbreviates some of the commands I usually run. Currently, my project is structured as follows:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-plaintext data-lang=plaintext><span class=line><span class=cl>.
+</span></span><span class=line><span class=cl>├── infrastructure
+</span></span><span class=line><span class=cl>│   ├── grafana
+</span></span><span class=line><span class=cl>│   │   ├── dashboards
+</span></span><span class=line><span class=cl>│   │   │   ├── dashboard.yaml
+</span></span><span class=line><span class=cl>│   │   │   └── nodes.json
+</span></span><span class=line><span class=cl>│   │   └── provisioning
+</span></span><span class=line><span class=cl>│   │       └── datasources
+</span></span><span class=line><span class=cl>│   │           └── datasources.yaml
+</span></span><span class=line><span class=cl>│   └── prometheus
+</span></span><span class=line><span class=cl>│       └── prometheus.yaml
+</span></span><span class=line><span class=cl>├── install-scripts
+</span></span><span class=line><span class=cl>│   ├── grafana
+</span></span><span class=line><span class=cl>│   │   └── grafana.sh
+</span></span><span class=line><span class=cl>│   ├── prometheus
+</span></span><span class=line><span class=cl>│   │   ├── prometheus.service
+</span></span><span class=line><span class=cl>│   │   └── prometheus.sh
+</span></span><span class=line><span class=cl>│   └── README.md
+</span></span><span class=line><span class=cl>├── Makefile
+</span></span><span class=line><span class=cl>└── README.md
+</span></span></code></pre></td></tr></table></div></div><p>This Makefile exists in the top level directory and allows me to apply changes to Prometheus or Grafana configs seemlessly as well as run a Salt highstate:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Makefile data-lang=Makefile><span class=line><span class=cl><span class=nf>salt-highstate</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>	sudo salt <span class=s1>&#39;*&#39;</span> state.highstate
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nf>install-prometheus</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>	sudo sh ./install-scripts/prometheus/prometheus.sh
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nf>install-grafana</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>	sudo sh ./install-scripts/grafana/grafana.sh
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nf>apply-grafana</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>	sudo mkdir /var/lib/grafana/dashboards
+</span></span><span class=line><span class=cl>	sudo touch /etc/grafana/provisioning/datasources/datasources.yaml /etc/grafana/provisioning/dashboards/dashboard.yaml
+</span></span><span class=line><span class=cl>	cat ./infrastructure/grafana/provisioning/datasources/datasources.yaml <span class=p>|</span> sudo tee /etc/grafana/provisioning/datasources/datasources.yaml
+</span></span><span class=line><span class=cl>	cat ./infrastructure/grafana/dashboards/dashboard.yaml <span class=p>|</span> sudo tee /etc/grafana/provisioning/dashboards/dashboard.yaml
+</span></span><span class=line><span class=cl>	cat ./infrastructure/grafana/dashboards/nodes.json <span class=p>|</span> sudo tee /var/lib/grafana/dashboards/nodes.json
+</span></span><span class=line><span class=cl>	sudo systemctl restart grafana-server
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nf>apply-prometheus</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>	sudo touch /etc/prometheus/prometheus.yaml
+</span></span><span class=line><span class=cl>	cat ./infrastructure/prometheus/prometheus.yaml <span class=p>|</span> sudo tee /etc/prometheus/prometheus.yaml
+</span></span><span class=line><span class=cl>	sudo systemctl restart prometheus
+</span></span></code></pre></td></tr></table></div></div><p>Fundamentally, the most complex targets in this Makefile are selected snippets of the install scripts that allow me to change configs on the fly.</p><h2 id=next-steps>Next steps</h2><p>While having a pre-built dashboard saved me a lot of time and effort, this dashboard has a bit too much information. What I really want is something more like a wall TV, where I can look at a single screen (without scrolling) and receive all the information I require to ascertain the status of my devices. Additionally, I also want to include the Salt files in my repository, so I&rsquo;ll probably be exploring that next.</p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2023-10-30</span></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><span></span></div></div></div><div class=post-info-more><section class=post-tags></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/overengineering_4/ class=prev rel=prev title="Adventures in Overengineering 4: Installing Node Exporter via Salt"><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>Adventures in Overengineering 4: Installing Node Exporter via Salt</a></div></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>Luís Franco</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/katex/katex.min.css><link rel=stylesheet href=/lib/katex/copy-tex.min.css><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/katex/katex.min.js></script><script type=text/javascript src=/lib/katex/auto-render.min.js></script><script type=text/javascript src=/lib/katex/copy-tex.min.js></script><script type=text/javascript src=/lib/katex/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:30,type:"lunr"}}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>
