@@ -6,7 +6,7 @@ description: "A bird's-eye view of how a Kubernetes cluster works"
 draft: false
 ---
 
-I've been meaning to do this for a while now. I've studied quite a Kubernetes in the past year and have a ton of handwritten notes that I want to throw away, so I'm transfering all of those notes into my blog. This is also a great review opportunity (and also has the added advantage that I will stop needing to comb through endless sheets of paper when I want to remember something). This is the first of such posts and it covers some basics around the architecture of a Kubernetes cluster. 
+I've been meaning to do this for a while now. I've studied quite a bit of Kubernetes in the past year and have a ton of handwritten notes that I want to throw away, so I'm transfering all of those notes into my blog. This is also a great review opportunity (and also has the added advantage that I will stop needing to comb through endless sheets of paper when I want to remember something). This is the first of such posts and it covers some basics around the architecture of a Kubernetes cluster. 
 
 ## Overview
 
