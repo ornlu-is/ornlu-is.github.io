@@ -158,4 +158,224 @@ The idea behind HATEOAS (Hypertext As The Engine Of Application State) is simila
 * the server can change the URI on the resource without breaking the client;
 * the server may add new functionality over a period of time.
 
-## Summary
+## Designing REST APIs
+
+https://domain/product/version/resource/{id}
+
+* https://domain - base domain
+* product/ - grouping name (optional)
+* version - API version
+* resource - REST resource
+* {id} - resource ID
+
+Do not use the www sub-domain for your API. Use dedicated domains for your APIs.
+
+The benefit of grouping APIs by product is that the APIs can be managed independently by multiple teams. Another benefit is that it makes it easier for the client to understand the API/resource.
+
+An API can be thought of as a software product and, like so, you need to manage multiple versions at the same time. This makes it easier to insulate API consumers from API changes. You can also manage versions via headers or query parameters. The root URL is everything before the actual resource.
+
+The names of resources are always nouns. Can be either plural or singular, there is not a defined standard here. What if the operation on a resource is not a CRUD operation? For example reporting, searching or calculations? In this case, we can define the action using a verb. This is usually tied to query parameters, when no resource is specified. When the action is tied to a resource, it should be part of the hierarchy.
+
+### REST API Contract and HTTP Status Codes
+
+The HTTP verb the client uses depends on the operation that will be carried out in the resource. The request data is consumed by the server to carry out the action on the resource. The server sends back data by the way of a response. The request can provide information via:
+* query parameters;
+* HTTP headers;
+* HTTP body.
+
+The response can provide information via:
+* HTTP headers;
+* HTTP body.
+
+The request and response need to be specified independently for each of the HTTP methods. These specific aspects are provided in the Uniform Interface. Needs to define:
+* endpoint;
+* allowed query parameters;
+* HTTP verbs;
+* standard headers and custom headers (response and request);
+* request/response body format and schema.
+
+An HTTP server always sends back the status code which is a 3 digit code with the first number categorizing it:
+* 1xx - informational
+* 2xx - success
+* 3xx - redirection
+* 4xx - client error
+* 5xx - server error
+
+Do not invent new HTTP codes, use the standard HTTP codes for your API.
+
+### CRUD Practices
+
+Use the appropriate HTTP verb for CRUD:
+* Create - POST
+* Read - GET
+* Update - PUT
+* Delete - DELETE
+
+Responses to POS requests may return the JSON of the new resource or a link to the new resource. Likewise, DELETE requests may return back the delete resource in the response. For updates, we can actually use two different verbs:
+* PUT - update all of the attributes of the resource
+* PATCH - update some of the attributes of the resource. This may be more performant and easier to use for large size objects.
+
+## REST API Error Response
+
+The `Status-Code` and `Reason-Phrase` are used in the implementation for sending status information back to the API client.
+
+The body may contain application status codes defined by the API designer. It is suggested that these are standardized across all APIs from a given organization.
+
+Options for sending error information:
+1. Error information only in HTTP Header: Status-Code, Reason-Phrase, x-Custom-header
+2. Error information only in body (not a great approach)
+3. Error information in header and in body (common approach)
+
+It is recommended that the number of status codes a given API returns be limited to about 10. The most common are: 200, 201, 400, 404, 401, 403, 415, 500.
+
+You should limit these because it makes it hard for the development team to manage a lot of status codes and eventually leads to an inconsistent API. Also makes the app developer's lives easier.
+
+### REST API Error Response Format
+
+The error info sent to the API client is meant for use by the application developer to define the runtime behaviour. It can also be used for logging for root cause analysis and for creating reports.
+
+The error response should be informative and actionable. It may send back the required field that was missing, for example. It should also be simple and consistent across APIs in the organisation:
+* Provide links to docs in the error message
+* Hints to address the issue
+* Messages that may be presented to end users
+* Define and use numeric application status codes
+* Maintain/share the app code with all developers in the team
+
+```json
+{
+  code: 666,
+  text: "missing field ASDF is required",
+  hints: ["please check the user has provided a non null ASDF"],
+  info: "http://link.to.docs"
+}
+```
+
+You should not expose database specific errors because:
+* It would expose the internal implementation details of your API;
+* The format of the errors may change in future versions of the database, requiring apps to change;
+* you may change the database technology and hence lead to a change in error message formats.
+
+## REST API Versioning Patterns
+
+### Handling Changes
+
+Assume that your API will change over time: because it will, like all software.
+
+Changes to an API impact external and internal consumers.
+
+Non-breaking changes:
+* adding stuff 
+* adding optional stuff;
+
+Breaking changes:
+* field name changes;
+* HTTP verb changes;
+* Removing an endpoint;
+* Removing fields.
+
+Always attempt to eliminate or minimize impact on end consumers. Provide planning opportunity to the application developers. Support backward compatibility if possible:
+* Provide support to application developers with the change (i.e., docs);
+* Minimize change frequency;
+* Version your API right from day one.
+
+### Versioning
+
+API versioning should be managed like any other software product. Having a clear version roadmap is important. Support for multiple versions is usually a must. One should ask the following questions:
+* How will the consumer specify the version?
+* What will be the format for version information?
+
+There are three options for specifying a version (by order or popularity):
+* HTTP Header
+* Query parameter
+* URL path
+
+Version formats:
+* Date of release as version: 2023-02-01
+* major.minor, typically prefixed with a v: v1.2
+* number, typically prefixed with a v: v1
+* Date and number of in-month release: 2023-01-89
+* Semantic versioning
+
+API change strategy:
+* Available => deprecated => retired, should support at least two versions at a time;
+* Support at least 1 previous version; maker previous versions as deprecated; publish a rollout plan in advance; manage changelog that clearly motivates the new version.
+
+## REST API Caching
+
+Caching can be built on all touchpoints:
+* client caching;
+* ISP caching;
+* Gateway caching;
+* DB caching;
+* API caching.
+
+This improves performance as well as scalability/throughput. Factors that need to be taken into account when caching:
+* Speed of change;
+* Time sensitivity;
+* Security.
+
+Design decisions:
+* Which component should control caching?
+* What to cache?
+* Who can cache?
+* For how long is the cache data valid?
+
+The last three bullet points are controlled via the HTTP Cache-Control directives.
+
+Cache-control directives must be obeyed by all caching mechanisms along the request/response chain. 
+* Response side cache-control:
+  * who can cache this response;
+  * for how long;
+  * under what conditions.
+* Request side cache-control:
+  * override the caching behaviour
+  * protect sensitive data from caching
+
+Sensitive data should not be cached on intermediares. Private data is meant for a single user. Sensitive data should not be stored anywhere. Always get the data from the server.
+
+Subsequent resquests to the same URL will return different data. Etag header can be used to check if the data has changed. Lifetime of cache data depends on for how long the data is intrinsically valid. Practices:
+* Take advantage of caching specially for high volume APIs;
+* Consider no-store and private for sensitive data;
+* Provide the validation tag (Etag) especially for large responses;
+* Carefully decide on the optimal max-age.
+
+### REST API Partial Response
+
+Typically the REST API server will expose a common endpoint for all REST clients. However, some consumers might not require the entirety of the data, which might lead to an unnecessary use of resources. The "one size fits all" approach is rarely optimal from the client perspective. You should let the client control the granularity of the data. Ways to support partial responses:
+* custom built partial response support;
+* GraphQL
+
+There are two ways which are commonly used for the field specification by the API client:
+* single query parameter - holds expression that identifies the fields, which are known as projections;
+* multiple query paramters - provides ways to filter the fields in the response, aka filters for the fields via query parameters
+
+### REST API Pagination
+
+Pagination gives the API consumer control over the responses, it kind of works as requesting a given number of rows. The API server splits the response from the database into several pages and sends only the requested page. Benefits:
+* Better performance and optimized resource usage (CPU, memory, bandwidth);
+* Common API version for all consumers (supports multiple devices).
+
+There are three common ways in which REST APIs implement pagination:
+* cursor based
+* offset based
+* use of HTTP headers
+
+A cursor is a control structure that enables transversal of records. Cursor based pagination is considered the most efficient. A cursor is a random string that points to a specific item in a collection. When the API is invoked, it sends back an envelope based response, with metadata about paging:
+
+```json
+{
+  paging: {
+    cursors: {
+      after: "something",
+      before: "something else"
+    }
+    previous: "full link",
+    next: "full link"
+  }
+}
+```
+
+Offset based pagination is the most common approach. It usually works via query parameters. The requester has to provide the starting row and the number of rows to receive.
+
+HTTP Link headers is a way to create relationships between resources.
+
